@@ -1,14 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=guru-login.html">
-    <script>
-        window.location.href = "guru-login.html";
-    </script>
-    <title>Mengalihkan...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi IPA Kelas 7</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; text-align: center; }
+        .header { background-color: #2c3e50; color: white; padding: 20px; border-radius: 10px; margin-bottom: 30px; }
+        .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        .kartu { background-color: white; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 250px; padding: 20px; text-decoration: none; color: #333; transition: 0.2s; }
+        .kartu:hover { transform: scale(1.05); }
+        .kartu h3 { color: #3498db; margin-top: 0; }
+        .kartu p { font-size: 14px; color: #7f8c8d; }
+    </style>
 </head>
 <body>
-    <p>Sedang mengalihkan ke Portal Guru...</p>
+    <div class="header">
+        <h1>Materi IPA Kelas 7</h1>
+        <p>Pilih materi di bawah ini untuk mulai belajar</p>
+    </div>
+    <div class="container">
+        <a href="materi-ipa-bab1.html" class="kartu">
+            <h3>Bab 1: Klasifikasi Makhluk Hidup</h3>
+            <p>Pelajari ciri-ciri makhluk hidup.</p>
+        </a>
+        <a href="materi-organisasi.html" class="kartu">
+            <h3>Bab 2: Organisasi Kehidupan</h3>
+            <p>Mengenal sel, jaringan, dan organ.</p>
+        </a>
+        <a href="materi-suhu.html" class="kartu">
+            <h3>Bab 3: Suhu dan Kalor</h3>
+            <p>Memahami konsep suhu dan perpindahan kalor.</p>
+        </a>
+        <a href="materi-interaksi.html" class="kartu">
+            <h3>Bab 4: Interaksi Makhluk Hidup</h3>
+            <p>Belajar tentang ekosistem.</p>
+        </a>
+    </div>
 </body>
 </html>
