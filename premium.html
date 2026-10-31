@@ -18,15 +18,37 @@
   }
   .box { 
     background: rgba(30, 41, 59, 0.9); 
-    padding: 32px 24px; 
+    padding: 30px 24px; 
     border-radius: 24px; 
     max-width: 400px; 
     width: 100%; 
     text-align: center; 
     border: 1px solid rgba(255,255,255,0.1); 
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
   }
-  .icon { font-size: 60px; margin-bottom: 16px; }
+  
+  /* BAGIAN NOMOR WA (PALING ATAS) */
+  .wa-banner {
+    background: #fef08a;
+    color: #854d0e;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border: 2px solid #eab308;
+  }
+  .wa-banner p { font-size: 14px; font-weight: 600; margin-bottom: 5px; }
+  .wa-banner h2 { font-size: 26px; font-weight: 900; letter-spacing: 1px; margin-bottom: 10px; color: #b45309; }
+  .wa-banner button {
+    background: #25D366;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .icon { font-size: 50px; margin-bottom: 16px; }
   h1 { font-size: 22px; color: #fcd34d; margin-bottom: 8px; }
   p { font-size: 13px; color: #94a3b8; margin-bottom: 24px; line-height: 1.5; }
   input { 
@@ -58,103 +80,50 @@
   .btn:active { transform: scale(0.97); }
   #pesan { margin-top: 15px; font-size: 14px; font-weight: bold; min-height: 20px; }
   
-  /* Kotak Info WA */
-  .kotak-wa {
-    margin-top: 25px; 
-    padding-top: 20px; 
-    border-top: 1px solid #334155;
-  }
-  .judul-wa { font-size: 13px; color: #94a3b8; margin-bottom: 12px; }
-  .nomor-wa { 
-    font-size: 24px; 
-    font-weight: 900; 
-    color: #fcd34d; 
-    letter-spacing: 2px;
-    background: rgba(0,0,0,0.3);
-    padding: 12px;
-    border-radius: 12px;
-    margin-bottom: 10px;
-    border: 1px dashed #fcd34d;
-  }
-  .wa-copy-btn {
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    gap: 8px;
-    background: #25D366; 
-    color: white; 
-    padding: 14px; 
-    border-radius: 12px;
-    font-weight: 700; 
-    font-size: 15px; 
-    cursor: pointer;
-    border: none; 
-    width: 100%; 
-    transition: 0.2s;
-  }
-  .wa-copy-btn:active { transform: scale(0.96); background: #1ebe5a; }
-  
-  .back { 
-    display: inline-block; 
-    margin-top: 20px; 
-    text-decoration: none; 
-    color: #64748b; 
-    font-size: 14px; 
-    cursor: pointer; 
-  }
+  .back { display: inline-block; margin-top: 20px; text-decoration: none; color: #64748b; font-size: 14px; cursor: pointer; }
 </style>
 </head>
 <body>
   <div class="box">
+    
+    <!-- NOMOR WA DITARUH DI SINI BIAR PASTI KELIHATAN -->
+    <div class="wa-banner">
+      <p>Belum punya sandi? Beli ke Admin:</p>
+      <h2>085167172915</h2>
+      <button onclick="salinNomor()" id="btn-wa">📋 Salin Nomor</button>
+    </div>
+
     <div class="icon">🔑</div>
     <h1>Buka Paket Premium</h1>
-    <p>Masukkan kode akses yang kamu beli. Materi akan terbuka otomatis sesuai durasi paket.</p>
+    <p>Masukkan kode akses yang kamu beli.</p>
     
     <input type="text" id="kode-akses" placeholder="Masukkan Sandi...">
     <button class="btn" onclick="cekKode()">Buka Kunci 🔓</button>
     
     <div id="pesan"></div>
 
-    <!-- KOTAK INFO WA -->
-    <div class="kotak-wa">
-      <p class="judul-wa">Belum punya kode akses? Hubungi Admin di nomor ini:</p>
-      <div class="nomor-wa">085167172915</div>
-      
-      <button onclick="salinNomor()" class="wa-copy-btn" id="btn-wa">
-        <span>📋</span> Salin Nomor WA Admin
-      </button>
-    </div>
-    
-    <!-- TOMBOL KEMBALI -->
     <a onclick="window.location.href='guru-dashboard.html'" class="back">← Kembali ke Dashboard</a>
   </div>
 
   <script>
-    // === FUNGSI SALIN NOMOR ===
     function salinNomor() {
       const nomor = "085167172915";
       const btn = document.getElementById('btn-wa');
-      
       navigator.clipboard.writeText(nomor).then(() => {
-        btn.innerHTML = "✅ Nomor Tersalin!";
+        btn.innerHTML = "✅ Tersalin!";
         btn.style.background = "#15803d";
-        
-        alert("Nomor WA Admin berhasil disalin!\n\nSilakan buka aplikasi WhatsApp dan chat ke nomor tersebut untuk membeli akses.");
-        
+        alert("Nomor berhasil disalin! Buka WhatsApp dan chat ke nomor tersebut.");
         setTimeout(() => {
-          btn.innerHTML = "<span>📋</span> Salin Nomor WA Admin";
+          btn.innerHTML = "📋 Salin Nomor";
           btn.style.background = "#25D366";
         }, 3000);
-      }).catch(err => {
-        alert("Gagal menyalin. Nomor Admin: " + nomor);
       });
     }
 
-    // === DAFTAR KODE & DURASI ===
     const daftarKode = {
-      "AZYB37": { durasi: 1 },    // 1 Hari
-      "AHZY99": { durasi: 7 },    // 1 Minggu
-      "CZYH77": { durasi: 30 }    // 1 Bulan
+      "AZYB37": { durasi: 1 },
+      "AHZY99": { durasi: 7 },
+      "CZYH77": { durasi: 30 }
     };
 
     function cekKode() {
@@ -169,14 +138,14 @@
         localStorage.setItem('premium_expired', kedaluwarsa);
         
         pesan.style.color = "#22c55e";
-        pesan.innerText = `Berhasil! Premium aktif selama ${paket.durasi} hari.`;
+        pesan.innerText = `Berhasil! Premium aktif ${paket.durasi} hari.`;
         
         setTimeout(() => {
           window.location.href = "guru-dashboard.html";
         }, 1500);
       } else {
         pesan.style.color = "#ef4444";
-        pesan.innerText = "Sandi salah atau tidak valid!";
+        pesan.innerText = "Sandi salah!";
       }
     }
   </script>
