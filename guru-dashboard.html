@@ -17,19 +17,6 @@
   
   .container { max-width: 500px; margin: 0 auto; }
   
-  /* BANNER NOMOR WA (PALING ATAS) */
-  .banner-wa {
-    background: #fef08a;
-    border: 3px solid #f59e0b;
-    border-radius: 20px;
-    padding: 15px;
-    text-align: center;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2);
-  }
-  .banner-wa p { font-size: 13px; font-weight: 700; color: #92400e; margin-bottom: 5px; }
-  .banner-wa h2 { font-size: 26px; font-weight: 900; color: #b45309; letter-spacing: 1px; }
-
   /* Header */
   .header { 
     display: flex; align-items: center; justify-content: space-between; 
@@ -76,17 +63,62 @@
     color: white; padding: 8px 12px; border-radius: 16px; 
     font-size: 11px; font-weight: 900; border: 2px solid #fef08a;
   }
+
+  /* MODAL PREMIUM */
+  .modal {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(5px);
+    justify-content: center; align-items: center; z-index: 100;
+  }
+  .modal.show { display: flex; }
+  .modal-content {
+    background: #fff; padding: 28px 24px; border-radius: 24px;
+    max-width: 340px; width: 90%; text-align: center;
+    border: 3px solid #f59e0b;
+  }
+  .modal-content h2 { color: #b45309; margin-bottom: 8px; font-size: 22px; }
+  .modal-content p { font-size: 13px; color: #64748b; margin-bottom: 16px; line-height: 1.5; }
+  
+  .input-kode {
+    width: 100%; padding: 14px; border-radius: 12px;
+    border: 2px solid #cbd5e1; margin-bottom: 12px;
+    text-align: center; font-size: 18px; font-weight: bold;
+    text-transform: uppercase; outline: none;
+  }
+  .input-kode:focus { border-color: #f59e0b; }
+  
+  .btn-unlock {
+    width: 100%; padding: 14px; background: linear-gradient(135deg, #f59e0b, #ea580c);
+    color: white; border: none; border-radius: 12px;
+    font-weight: 800; font-size: 16px; cursor: pointer;
+    margin-bottom: 10px;
+  }
+  
+  .divider {
+    display: flex; align-items: center; text-align: center;
+    margin: 20px 0; color: #94a3b8; font-size: 13px;
+  }
+  .divider::before, .divider::after {
+    content: ''; flex: 1; border-bottom: 1px solid #e2e8f0;
+  }
+  .divider::before { margin-right: 10px; }
+  .divider::after { margin-left: 10px; }
+  
+  .nomor-wa-box {
+    background: #dcfce7; border: 2px dashed #22c55e;
+    padding: 12px; border-radius: 12px; font-size: 20px;
+    font-weight: 900; color: #166534; margin-bottom: 8px;
+  }
+  
+  .btn-close {
+    width: 100%; padding: 12px; background: #f1f5f9;
+    color: #475569; border: none; border-radius: 12px;
+    font-weight: 700; cursor: pointer; margin-top: 10px;
+  }
 </style>
 </head>
 <body>
   <div class="container">
-    
-    <!-- BANNER NOMOR WA PALING ATAS -->
-    <div class="banner-wa">
-      <p>🔒 Beli Akses Premium? Hubungi Admin:</p>
-      <h2>085167172915</h2>
-    </div>
-
     <div class="header">
       <div class="kiri">
         <div class="avatar">🧑‍🏫</div>
@@ -101,16 +133,43 @@
     <div class="grid-mapel" id="list-mapel"></div>
   </div>
 
+  <!-- MODAL PREMIUM (INPUT KODE & NOMOR WA) -->
+  <div class="modal" id="modal-premium">
+    <div class="modal-content">
+      <h2>🔒 Materi Premium</h2>
+      <p>Sudah punya sandi? Masukkan di bawah. Belum punya? Hubungi Admin.</p>
+      
+      <!-- INPUT KODE -->
+      <input type="text" id="input-kode" class="input-kode" placeholder="Masukkan Sandi...">
+      <button class="btn-unlock" onclick="bukaKunci()">Buka Kunci 🔓</button>
+      
+      <div class="divider">ATAU</div>
+      
+      <!-- INFO NOMOR WA -->
+      <p style="margin-bottom: 5px;">Beli sandi ke Admin:</p>
+      <div class="nomor-wa-box">085167172915</div>
+      <p style="font-size: 12px;">(Tekan lama nomor untuk menyalin)</p>
+      
+      <button class="btn-close" onclick="tutupModal()">Tutup</button>
+    </div>
+  </div>
+
   <script>
     const guruAktif = localStorage.getItem('guru_aktif');
     if (!guruAktif) { window.location.href = "guru-login.html"; }
 
     const daftarMateri = [
-      { id: 1, judul: "Klasifikasi Makhluk Hidup", sub: "Bab 2 - IPA Kelas 7", ikon: "🦠", file: "materi-ipa-bab1.html", premium: false, warna: "warna-1" },
-      { id: 2, judul: "Suhu dan Kalor", sub: "Bab 4 - IPA Kelas 7", ikon: "🌡️", file: "materi-suhu.html", premium: false, warna: "warna-2" },
-      { id: 3, judul: "Sistem Organisasi Kehidupan", sub: "Materi Semester 2", ikon: "🫀", file: "materi-organisasi.html", premium: true, warna: "warna-3" },
-      { id: 4, judul: "Interaksi Makhluk Hidup", sub: "Materi Semester 2", ikon: "🌿", file: "materi-interaksi.html", premium: true, warna: "warna-4" }
+      { id: 1, judul: "Klasifikasi Makhluk Hidup", ikon: "🦠", file: "materi-ipa-bab1.html", premium: false, warna: "warna-1" },
+      { id: 2, judul: "Suhu dan Kalor", ikon: "🌡️", file: "materi-suhu.html", premium: false, warna: "warna-2" },
+      { id: 3, judul: "Sistem Organisasi Kehidupan", ikon: "🫀", file: "materi-organisasi.html", premium: true, warna: "warna-3" },
+      { id: 4, judul: "Interaksi Makhluk Hidup", ikon: "🌿", file: "materi-interaksi.html", premium: true, warna: "warna-4" }
     ];
+
+    const daftarKode = {
+      "AZYB37": { durasi: 1 },    // 1 Hari
+      "AHZY99": { durasi: 7 },    // 1 Minggu
+      "CZYH77": { durasi: 30 }    // 1 Bulan
+    };
 
     function renderMapel() {
       const container = document.getElementById('list-mapel');
@@ -150,13 +209,37 @@
 
         card.onclick = () => {
           if (materi.premium && !isPremium) {
-            alert("Materi ini Premium! Silakan hubungi Admin di nomor 085167172915 untuk membeli akses.");
+            // Buka modal premium
+            document.getElementById('modal-premium').classList.add('show');
+            document.getElementById('input-kode').value = ''; // Reset input
           } else {
             window.location.href = materi.file;
           }
         };
         container.appendChild(card);
       });
+    }
+
+    function bukaKunci() {
+      const input = document.getElementById('input-kode').value.toUpperCase().trim();
+      
+      if (daftarKode[input]) {
+        const paket = daftarKode[input];
+        const sekarang = new Date().getTime();
+        const kedaluwarsa = sekarang + (paket.durasi * 24 * 60 * 60 * 1000);
+        
+        localStorage.setItem('premium_expired', kedaluwarsa);
+        
+        alert(`Berhasil! Premium aktif selama ${paket.durasi} hari.`);
+        document.getElementById('modal-premium').classList.remove('show');
+        renderMapel(); // Render ulang biar langsung kebuka
+      } else {
+        alert("Sandi salah atau tidak valid!");
+      }
+    }
+
+    function tutupModal() {
+      document.getElementById('modal-premium').classList.remove('show');
     }
 
     function logout() {
