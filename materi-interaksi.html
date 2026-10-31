@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Materi IPA: Interaksi Makhluk Hidup</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  /* Tema Cerah (Hijau & Kuning) */
+  body { 
+    font-family: 'Segoe UI', system-ui, sans-serif; 
+    background: linear-gradient(135deg, #dcfce7 0%, #fef08a 100%);
+    color: #1e293b; 
+    padding: 20px; 
+    min-height: 100vh; 
+  }
+
+  .container { max-width: 500px; margin: 0 auto; }
+  
+  .back-btn { 
+    display: inline-flex; align-items: center; gap: 6px; 
+    text-decoration: none; color: #166534; font-size: 14px; font-weight: 700; 
+    margin-bottom: 20px; padding: 10px 16px; 
+    background: #f0fdf4; border-radius: 12px; 
+    border: 2px solid #86efac; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+  
+  .character-box { text-align: center; margin-bottom: 20px; animation: float 3s ease-in-out infinite; }
+  @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+  .character-img { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 5px solid #fff; box-shadow: 0 10px 20px rgba(22, 163, 74, 0.3); background-color: #fff; }
+  .character-name { font-size: 16px; font-weight: 800; color: #166534; margin-top: 10px; background: #f0fdf4; display: inline-block; padding: 6px 16px; border-radius: 20px; border: 2px solid #86efac; }
+
+  .materi-card { 
+    background: #ffffff; padding: 24px; border-radius: 24px; border: 3px solid #86efac;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05); margin-bottom: 24px;
+  }
+  
+  .materi-card h2 { font-size: 22px; color: #15803d; margin-bottom: 16px; }
+  .materi-card h3 { font-size: 18px; color: #b45309; margin-top: 24px; margin-bottom: 10px; border-bottom: 2px dashed #fcd34d; padding-bottom: 4px; }
+  .materi-card p { font-size: 15px; line-height: 1.7; color: #334155; margin-bottom: 12px; }
+  .materi-card ul { padding-left: 20px; margin-bottom: 12px; }
+  .materi-card li { font-size: 15px; line-height: 1.7; color: #334155; margin-bottom: 6px; }
+  .materi-card strong { color: #16a34a; }
+  
+  /* Ilustrasi Emoji Raksasa */
+  .ilustrasi-emoji {
+    text-align: center;
+    font-size: 60px;
+    margin: 20px 0;
+    background: #f0fdf4;
+    border-radius: 20px;
+    padding: 15px;
+    border: 2px dashed #86efac;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+  .info-box {
+    background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;
+    padding: 16px; margin-bottom: 12px;
+  }
+  .info-box h4 { font-size: 16px; color: #0f172a; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .info-box p { font-size: 14px; line-height: 1.6; margin-bottom: 0; color: #475569; }
+
+  .fun-fact {
+    background: #fef9c3; border-left: 5px solid #eab308;
+    padding: 14px 16px; border-radius: 12px; margin-top: 16px; font-weight: 500;
+    color: #854d0e; font-size: 15px;
+  }
+
+  /* GAME SECTION */
+  .game-section {
+    background: linear-gradient(135deg, #f0fdf4, #e0f2fe);
+    padding: 24px; border-radius: 24px; border: 3px solid #22c55e;
+    box-shadow: 0 10px 25px rgba(34, 197, 94, 0.2); text-align: center; margin-bottom: 20px;
+  }
+  .game-section h2 { font-size: 24px; margin-bottom: 8px; color: #15803d; }
+  .game-section p { font-size: 15px; color: #64748b; margin-bottom: 20px; font-weight: 500; }
+  
+  .game-board { background: #fff; padding: 20px; border-radius: 20px; }
+  .question-box { font-size: 18px; font-weight: 800; color: #1e293b; margin-bottom: 20px; min-height: 60px; display: flex; align-items: center; justify-content: center; text-align: center; }
+  .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .option-btn { padding: 16px; background: #f8fafc; border: 2px solid #cbd5e1; border-radius: 16px; font-size: 15px; font-weight: 700; color: #334155; cursor: pointer; transition: all 0.1s; box-shadow: 0 4px 0 #cbd5e1; }
+  .option-btn:active { transform: translateY(4px); box-shadow: 0 0 0 #cbd5e1; }
+  .option-btn.correct { background: #dcfce7; border-color: #22c55e; color: #166534; box-shadow: 0 4px 0 #22c55e; }
+  .option-btn.wrong { background: #fee2e2; border-color: #ef4444; color: #991b1b; box-shadow: 0 4px 0 #ef4444; }
+  #game-score { font-size: 18px; font-weight: 900; color: #15803d; margin-top: 15px; }
+  .btn-start { padding: 14px 32px; background: #22c55e; color: white; border: none; border-radius: 16px; font-size: 18px; font-weight: 800; cursor: pointer; box-shadow: 0 6px 0 #15803d; transition: all 0.1s; margin-top: 10px; }
+  .btn-start:active { transform: translateY(6px); box-shadow: 0 0 0 #15803d; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <a href="guru-dashboard.html" class="back-btn">← Kembali ke Dashboard</a>
+    
+    <div class="character-box">
+      <img src="https://img.freepik.com/free-vector/cute-girl-wearing-school-uniform-waving-hand-cartoon_138676-2736.jpg" alt="Karakter Anak SMP" class="character-img">
+      <div class="character-name">Hai, aku Nisa! Ayo belajar Interaksi Makhluk Hidup! 🌿</div>
+    </div>
+
+    <div class="materi-card">
+      <h2>🌿 Interaksi Makhluk Hidup</h2>
+      
+      <h3>1. Pengertian Ekosistem</h3>
+      <p>Ekosistem adalah kesatuan antara makhluk hidup (komponen biotik) dengan lingkungannya (komponen abiotik) yang saling berinteraksi dan saling mempengaruhi. Di dalam ekosistem, terjadi hubungan timbal balik yang sangat erat.</p>
+      
+      <div class="ilustrasi-emoji">🌳🌞💧🐾</div>
+
+      <h3>2. Komponen Ekosistem</h3>
+      <p>Ekosistem terdiri dari dua komponen utama, yaitu:</p>
+      
+      <div class="info-box" style="border-left: 5px solid #22c55e; background: #f0fdf4;">
+        <h4>🌱 Komponen Biotik (Makhluk Hidup)</h4>
+        <p>Berdasarkan perannya, komponen biotik dibagi menjadi:</p>
+        <ul>
+          <li><strong>Produsen (Autotrof):</strong> Membuat makanan sendiri melalui fotosintesis. Contoh: tumbuhan hijau, alga, fitoplankton.</li>
+          <li><strong>Konsumen (Heterotrof):</strong> Memakan organisme lain. Dibagi lagi menjadi:
+            <ul>
+              <li>Herbivora (pemakan tumbuhan): sapi, kambing, belalang.</li>
+              <li>Karnivora (pemakan daging): singa, harimau, elang.</li>
+              <li>Omnivora (pemakan segala): manusia, ayam, beruang.</li>
+            </ul>
+          </li>
+          <li><strong>Pengurai (Dekomposer):</strong> Menguraikan sisa makhluk hidup menjadi zat hara. Contoh: bakteri, jamur.</li>
+        </ul>
+      </div>
+
+      <div class="info-box" style="border-left: 5px solid #3b82f6; background: #eff6ff;">
+        <h4>💧 Komponen Abiotik (Benda Mati)</h4>
+        <p>Komponen abiotik mempengaruhi kehidupan makhluk hidup. Contoh:</p>
+        <ul>
+          <li><strong>Air:</strong> Dibutuhkan semua makhluk hidup untuk bertahan hidup.</li>
+          <li><strong>Udara:</strong> Mengandung oksigen untuk bernapas dan karbon dioksida untuk fotosintesis.</li>
+          <li><strong>Tanah:</strong> Menyediakan unsur hara dan tempat hidup bagi organisme tanah.</li>
+          <li><strong>Cahaya Matahari:</strong> Sumber energi utama bagi kehidupan (untuk fotosintesis).</li>
+          <li><strong>Suhu:</strong> Mempengaruhi aktivitas makhluk hidup.</li>
+        </ul>
+      </div>
+
+      <h3>3. Satuan Makhluk Hidup dalam Ekosistem</h3>
+      <p>Untuk memudahkan mempelajarinya, ekosistem dibagi menjadi beberapa satuan:</p>
+      <ul>
+        <li><strong>Individu:</strong> Satu makhluk hidup tunggal (contoh: seekor kucing).</li>
+        <li><strong>Populasi:</strong> Kumpulan individu sejenis di suatu tempat (contoh: kumpulan kucing di satu desa).</li>
+        <li><strong>Komunitas:</strong> Kumpulan berbagai populasi yang hidup bersama di suatu tempat (contoh: kucing, tikus, rumput, dan pohon di sawah).</li>
+      </ul>
+
+      <h3>4. Rantai Makanan</h3>
+      <p>Rantai makanan adalah perpindahan energi dari satu makhluk hidup ke makhluk hidup lain melalui proses makan dan dimakan. Arah panah menunjukkan arah perpindahan energi.</p>
+      
+      <div class="ilustrasi-emoji">🌾➔🐛➔🐸➔🐍</div>
+
+      <div class="info-box">
+        <h4>🔗 Tingkatan dalam Rantai Makanan</h4>
+        <ul>
+          <li><strong>Produsen:</strong> Tumbuhan hijau (contoh: padi).</li>
+          <li><strong>Konsumen I (Trofik 2):</strong> Pemakan produsen (contoh: belalang, tikus).</li>
+          <li><strong>Konsumen II (Trofik 3):</strong> Pemakan konsumen I (contoh: katak, ular).</li>
+          <li><strong>Konsumen Puncak:</strong> Pemakan terakhir (contoh: elang).</li>
+          <li><strong>Pengurai:</strong> Bakteri dan jamur yang menguraikan sisa makhluk hidup.</li>
+        </ul>
+      </div>
+
+      <h3>5. Jaring-jaring Makanan</h3>
+      <p>Di alam, hewan tidak hanya makan satu jenis makanan saja. Jaring-jaring makanan adalah kumpulan rantai makanan yang saling berhubungan dan tumpang tindih dalam suatu ekosistem. Ini membuat ekosistem lebih stabil karena energi tidak hanya bergantung pada satu jalur.</p>
+
+      <h3>6. Simbiosis (Hubungan Antar Makhluk Hidup)</h3>
+      <p>Ada kalanya dua makhluk hidup hidup bersama dalam hubungan yang erat. Ini disebut simbiosis. Ada 3 jenis simbiosis:</p>
+
+      <div class="info-box" style="border-left: 5px solid #22c55e; background: #f0fdf4;">
+        <h4>1. Simbiosis Mutualisme (Saling Menguntungkan)</h4>
+        <p>Kedua pihak mendapatkan keuntungan.</p>
+        <ul>
+          <li><strong>Lebah dan Bunga:</strong> Lebah mendapat nektar, bunga terbantu penyerbukannya.</li>
+          <li><strong>Bakteri Rhizobium dan Kacang-kacangan:</strong> Bakteri mengikat nitrogen, tanaman dapat zat hara.</li>
+        </ul>
+      </div>
+
+      <div class="info-box" style="border-left: 5px solid #f59e0b; background: #fffbeb;">
+        <h4>2. Simbiosis Komensalisme (Satu Untung, Satu Netral)</h4>
+        <p>Satu pihak untung, pihak lain tidak dirugikan dan tidak diuntungkan.</p>
+        <ul>
+          <li><strong>Anggrek dan Pohon:</strong> Anggrek menempel di pohon untuk tempat hidup, pohon tidak dirugikan.</li>
+          <li><strong>Ikan Remora dan Ikan Hiu:</strong> Remora mendapat sisa makanan hiu, hiu tidak terpengaruh.</li>
+        </ul>
+      </div>
+
+      <div class="info-box" style="border-left: 5px solid #ef4444; background: #fef2f2;">
+        <h4>3. Simbiosis Parasitisme (Satu Untung, Satu Rugi)</h4>
+        <p>Satu pihak diuntungkan (parasit), pihak lain dirugikan (inang).</p>
+        <ul>
+          <li><strong>Benalu dan Pohon:</strong> Benalu mengambil air dan zat hara dari pohon, pohon jadi lemah.</li>
+          <li><strong>Kutu dan Manusia:</strong> Kutu menghisap darah, manusia jadi gatal.</li>
+        </ul>
+      </div>
+
+      <h3>7. Piramida Makanan</h3>
+      <p>Piramida makanan adalah gambaran perbandingan jumlah makhluk hidup berdasarkan tingkat trofiknya. Semakin ke atas, jumlahnya semakin sedikit. Produsen ada di dasar (paling banyak), sedangkan konsumen puncak ada di puncak (paling sedikit).</p>
+
+      <h3>8. Peran Manusia dalam Ekosistem</h3>
+      <p>Manusia termasuk makhluk hidup yang sangat mempengaruhi ekosistem. Kegiatan manusia dapat merusak ekosistem (penebangan liar, pemburuan, pencemaran) atau melestarikan ekosistem (reboisasi, konservasi, daur ulang).</p>
+
+      <div class="fun-fact">
+        💡 <strong>Fun Fact:</strong> Di dalam ekosistem, energi mengalir dari matahari ➔ produsen ➔ konsumen ➔ pengurai. Setiap tingkat, energi berkurang sekitar 90%! Itu sebabnya konsumen puncak jumlahnya paling sedikit.
+      </div>
+    </div>
+
+    <!-- GAME SECTION -->
+    <div class="game-section">
+      <h2>⚡ Rapid Fire: 15 Soal!</h2>
+      <p>Jawab semua soal sebelum waktu habis!</p>
+      
+      <div class="game-board">
+        <div id="game-area">
+          <div class="question-box" id="question-text">Tekan tombol di bawah untuk mulai!</div>
+          <button class="btn-start" onclick="startGame()" id="btn-start">Mulai Game 🚀</button>
+          <div class="options-grid" id="options-container" style="display: none;">
+            <button class="option-btn" onclick="checkAnswer(this)">A</button>
+            <button class="option-btn" onclick="checkAnswer(this)">B</button>
+            <button class="option-btn" onclick="checkAnswer(this)">C</button>
+            <button class="option-btn" onclick="checkAnswer(this)">D</button>
+          </div>
+        </div>
+        <div id="game-score">Skor: 0 | Waktu: 90s</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const questions = [
+      { q: "Kesatuan antara makhluk hidup dengan lingkungannya disebut...", a: "Ekosistem", options: ["Populasi", "Komunitas", "Ekosistem", "Habitat"] },
+      { q: "Komponen ekosistem yang terdiri atas makhluk hidup disebut...", a: "Biotik", options: ["Abiotik", "Biotik", "Organik", "Anorganik"] },
+      { q: "Air dan tanah termasuk komponen...", a: "Abiotik", options: ["Biotik", "Abiotik", "Produsen", "Konsumen"] },
+      { q: "Makhluk hidup yang dapat membuat makanan sendiri disebut...", a: "Produsen", options: ["Konsumen", "Pengurai", "Produsen", "Predator"] },
+      { q: "Organisme yang menguraikan sisa makhluk hidup disebut...", a: "Pengurai", options: ["Produsen", "Konsumen", "Pengurai", "Predator"] },
+      { q: "Rantai makanan: Padi ➔ Tikus ➔ Ular ➔ Elang. Ular berperan sebagai...", a: "Konsumen II", options: ["Produsen", "Konsumen I", "Konsumen II", "Konsumen Puncak"] },
+      { q: "Hubungan antara dua makhluk hidup yang saling menguntungkan disebut...", a: "Mutualisme", options: ["Parasitisme", "Komensalisme", "Mutualisme", "Predasi"] },
+      { q: "Contoh simbiosis mutualisme adalah...", a: "Lebah dengan bunga", options: ["Benalu dengan pohon", "Lebah dengan bunga", "Anggrek dengan pohon", "Kucing dengan tikus"] },
+      { q: "Hubungan antara benalu dengan pohon termasuk...", a: "Parasitisme", options: ["Mutualisme", "Komensalisme", "Parasitisme", "Kompetisi"] },
+      { q: "Hubungan satu pihak diuntungkan, pihak lain tidak dirugikan disebut...", a: "Komensalisme", options: ["Mutualisme", "Komensalisme", "Parasitisme", "Predasi"] },
+      { q: "Contoh simbiosis komensalisme adalah...", a: "Anggrek dengan pohon", options: ["Lebah dengan bunga", "Anggrek dengan pohon", "Benalu dengan pohon", "Kucing dengan tikus"] },
+      { q: "Hubungan pemangsa dan mangsa disebut...", a: "Predasi", options: ["Mutualisme", "Komensalisme", "Parasitisme", "Predasi"] },
+      { q: "Padi pada rantai makanan berperan sebagai...", a: "Produsen", options: ["Produsen", "Konsumen I", "Konsumen II", "Pengurai"] },
+      { q: "Jamur dan bakteri dalam ekosistem berperan sebagai...", a: "Pengurai", options: ["Produsen", "Konsumen", "Pengurai", "Predator"] },
+      { q: "Kumpulan individu sejenis di suatu tempat disebut...", a: "Populasi", options: ["Komunitas", "Populasi", "Ekosistem", "Biosfer"] }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let gameActive = false;
+    let timeLeft = 90; 
+    let timerInterval;
+
+    function startGame() {
+      gameActive = true;
+      currentQ = 0;
+      score = 0;
+      timeLeft = 90;
+      
+      document.getElementById('btn-start').style.display = 'none';
+      document.getElementById('options-container').style.display = 'grid';
+      document.getElementById('game-score').innerText = `Skor: 0 | Waktu: ${timeLeft}s`;
+      
+      questions.sort(() => Math.random() - 0.5);
+      loadQuestion();
+
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        document.getElementById('game-score').innerText = `Skor: ${score} | Waktu: ${timeLeft}s`;
+        if (timeLeft <= 0) { endGame(); }
+      }, 1000);
+    }
+
+    function loadQuestion() {
+      if (currentQ >= questions.length) {
+        endGame();
+        return;
+      }
+      
+      const q = questions[currentQ];
+      document.getElementById('question-text').innerText = q.q;
+      
+      const opts = document.querySelectorAll('.option-btn');
+      opts.forEach((btn, index) => {
+        btn.innerText = q.options[index];
+        btn.className = 'option-btn';
+        btn.disabled = false;
+      });
+    }
+
+    function checkAnswer(btn) {
+      if (!gameActive) return;
+      
+      const q = questions[currentQ];
+      const selected = btn.innerText;
+      
+      document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+
+      if (selected === q.a) {
+        btn.classList.add('correct');
+        score += 10;
+      } else {
+        btn.classList.add('wrong');
+        document.querySelectorAll('.option-btn').forEach(b => {
+          if (b.innerText === q.a) b.classList.add('correct');
+        });
+      }
+
+      setTimeout(() => {
+        currentQ++;
+        loadQuestion();
+      }, 600); 
+    }
+
+    function endGame() {
+      gameActive = false;
+      clearInterval(timerInterval);
+      document.getElementById('question-text').innerHTML = `🎉 <b>Selesai!</b><br>Skor Akhir: ${score}`;
+      document.getElementById('options-container').style.display = 'none';
+      document.getElementById('btn-start').innerText = "Main Lagi 🔄";
+      document.getElementById('btn-start').style.display = 'inline-block';
+    }
+  </script>
+</body>
+</html>

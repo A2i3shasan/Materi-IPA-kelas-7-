@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pusat Kuis Premium</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { 
+    font-family: 'Segoe UI', system-ui, sans-serif; 
+    background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), url('https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1000&auto=format&fit=crop');
+    background-size: cover; 
+    background-position: center; 
+    background-attachment: fixed;
+    color: #fff; 
+    padding: 20px; 
+    min-height: 100vh; 
+    display: flex; 
+    justify-content: center; 
+  }
+  .container { max-width: 480px; width: 100%; margin-top: 20px; }
+  
+  .header { text-align: center; margin-bottom: 36px; }
+  .header h1 { 
+    font-size: 34px; font-weight: 900; 
+    background: linear-gradient(to right, #a78bfa, #f472b6, #38bdf8); 
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+    margin-bottom: 8px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+  }
+  .header p { font-size: 14px; color: #e2e8f0; font-weight: 500; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
+
+  /* Tombol Besar Materi */
+  .btn-materi { 
+    display: flex; align-items: center; justify-content: center; gap: 10px; 
+    text-decoration: none; 
+    background: linear-gradient(135deg, #f97316 0%, #ef4444 100%); 
+    color: #fff; padding: 20px; border-radius: 24px; 
+    font-weight: 800; font-size: 18px; margin-bottom: 36px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: 0.2s;
+  }
+  .btn-materi:active { transform: scale(0.96); }
+
+  .sub-judul { font-size: 16px; font-weight: 700; color: #f8fafc; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
+
+  /* Grid Kelas */
+  .grid-menu { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .card { 
+    background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(8px); 
+    text-decoration: none; padding: 24px 12px; border-radius: 24px; 
+    border: 1px solid rgba(255, 255, 255, 0.2); text-align: center; transition: 0.3s; 
+  }
+  .card:active { transform: scale(0.96); }
+  .card .ikon { font-size: 36px; margin-bottom: 12px; display: block; }
+  .card .teks { font-weight: 700; color: #f8fafc; font-size: 16px; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Pusat Kuis</h1>
+      <p>Latihan soal interaktif & materi lengkap</p>
+    </div>
+
+    <!-- TOMBOL KE HALAMAN MATERI (4 KARTU) -->
+    <a href="halaman-guru.html" class="btn-materi">
+      <span>📚</span> Buka Materi Belajar
+    </a>
+
+    <h2 class="sub-judul">Pilih Kelas</h2>
+    
+    <div class="grid-menu">
+      <a href="mapel.html?kelas=7" class="card"><span class="ikon">📘</span><span class="teks">Kelas 7</span></a>
+      <a href="mapel.html?kelas=8" class="card"><span class="ikon">📗</span><span class="teks">Kelas 8</span></a>
+      <a href="mapel.html?kelas=9" class="card"><span class="ikon">📙</span><span class="teks">Kelas 9</span></a>
+    </div>
+  </div>
+</body>
+</html>

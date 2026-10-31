@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Materi IPA: Klasifikasi Makhluk Hidup</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body { 
+    font-family: 'Segoe UI', system-ui, sans-serif; 
+    background: linear-gradient(135deg, #d1fae5 0%, #dbeafe 100%);
+    color: #1e293b; 
+    padding: 20px; 
+    min-height: 100vh; 
+  }
+
+  .container { max-width: 500px; margin: 0 auto; }
+  
+  .back-btn { 
+    display: inline-flex; align-items: center; gap: 6px; 
+    text-decoration: none; color: #047857; font-size: 14px; font-weight: 700; 
+    margin-bottom: 20px; padding: 10px 16px; 
+    background: #ecfdf5; border-radius: 12px; 
+    border: 2px solid #34d399; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+  
+  .character-box { text-align: center; margin-bottom: 20px; animation: float 3s ease-in-out infinite; }
+  @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+  .character-img { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 5px solid #fff; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3); background-color: #fff; }
+  .character-name { font-size: 16px; font-weight: 800; color: #047857; margin-top: 10px; background: #ecfdf5; display: inline-block; padding: 6px 16px; border-radius: 20px; border: 2px solid #34d399; }
+
+  .materi-card { 
+    background: #ffffff; padding: 24px; border-radius: 24px; border: 3px solid #93c5fd;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05); margin-bottom: 24px;
+  }
+  
+  .materi-card h2 { font-size: 22px; color: #1d4ed8; margin-bottom: 16px; }
+  .materi-card h3 { font-size: 18px; color: #15803d; margin-top: 24px; margin-bottom: 10px; }
+  .materi-card p { font-size: 15px; line-height: 1.7; color: #334155; margin-bottom: 12px; }
+  .materi-card ul { padding-left: 20px; margin-bottom: 12px; }
+  .materi-card li { font-size: 15px; line-height: 1.7; color: #334155; margin-bottom: 6px; }
+  .materi-card strong { color: #ea580c; }
+  
+  /* Kotak Penjelasan Takson */
+  .takson-box {
+    background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;
+    padding: 16px; margin-bottom: 12px;
+  }
+  .takson-box h4 { font-size: 16px; color: #0369a1; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .takson-box p { font-size: 14px; line-height: 1.6; margin-bottom: 0; color: #475569; }
+  .takson-box .contoh { font-size: 13px; color: #166534; background: #dcfce7; padding: 6px 10px; border-radius: 8px; display: inline-block; margin-top: 6px; }
+
+  /* Kotak Kingdom */
+  .kingdom-box {
+    background: #f0fdf4; border-left: 5px solid #22c55e; border-radius: 12px;
+    padding: 16px; margin-bottom: 16px;
+  }
+  .kingdom-box h4 { font-size: 16px; color: #166534; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .kingdom-box p { font-size: 14px; line-height: 1.6; margin-bottom: 8px; }
+  .kingdom-box ul { padding-left: 20px; margin-bottom: 0; }
+  .kingdom-box li { font-size: 14px; line-height: 1.6; margin-bottom: 4px; }
+
+  .fun-fact {
+    background: #fef9c3; border-left: 5px solid #eab308;
+    padding: 14px 16px; border-radius: 12px; margin-top: 16px; font-weight: 500;
+    color: #854d0e; font-size: 15px;
+  }
+
+  /* GAME SECTION */
+  .game-section {
+    background: linear-gradient(135deg, #f0fdf4, #e0f2fe);
+    padding: 24px; border-radius: 24px; border: 3px solid #f59e0b;
+    box-shadow: 0 10px 25px rgba(245, 158, 11, 0.2); text-align: center; margin-bottom: 20px;
+  }
+  .game-section h2 { font-size: 24px; margin-bottom: 8px; color: #b45309; }
+  .game-section p { font-size: 15px; color: #64748b; margin-bottom: 20px; font-weight: 500; }
+  
+  .game-board { background: #fff; padding: 20px; border-radius: 20px; }
+  .question-box { font-size: 18px; font-weight: 800; color: #1e293b; margin-bottom: 20px; min-height: 60px; display: flex; align-items: center; justify-content: center; }
+  .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .option-btn { padding: 16px; background: #f8fafc; border: 2px solid #cbd5e1; border-radius: 16px; font-size: 15px; font-weight: 700; color: #334155; cursor: pointer; transition: all 0.1s; box-shadow: 0 4px 0 #cbd5e1; }
+  .option-btn:active { transform: translateY(4px); box-shadow: 0 0 0 #cbd5e1; }
+  .option-btn.correct { background: #dcfce7; border-color: #22c55e; color: #166534; box-shadow: 0 4px 0 #22c55e; }
+  .option-btn.wrong { background: #fee2e2; border-color: #ef4444; color: #991b1b; box-shadow: 0 4px 0 #ef4444; }
+  #game-score { font-size: 18px; font-weight: 900; color: #ea580c; margin-top: 15px; }
+  .btn-start { padding: 14px 32px; background: #f59e0b; color: white; border: none; border-radius: 16px; font-size: 18px; font-weight: 800; cursor: pointer; box-shadow: 0 6px 0 #b45309; transition: all 0.1s; margin-top: 10px; }
+  .btn-start:active { transform: translateY(6px); box-shadow: 0 0 0 #b45309; }
+</style>
+</head>
+<body>
+  <div class="container">
+  <a href="guru-dashboard.html" class="back-btn">← Kembali ke Dashboard</a>
+    
+    <div class="character-box">
+      <img src="https://img.freepik.com/free-vector/cute-girl-wearing-school-uniform-waving-hand-cartoon_138676-2736.jpg" alt="Karakter Anak SMP" class="character-img">
+      <div class="character-name">Hai, aku Nisa! Ayo belajar IPA! 🌿</div>
+    </div>
+
+    <div class="materi-card">
+      <h2>🔬 Klasifikasi Makhluk Hidup</h2>
+      
+      <h3>1. Ciri-ciri Makhluk Hidup</h3>
+      <ul>
+        <li>Bernapas (respirasi)</li>
+        <li>Membutuhkan makanan dan air (nutrisi)</li>
+        <li>Bergerak dan menanggapi rangsang</li>
+        <li>Tumbuh dan berkembang</li>
+        <li>Berkembang biak (reproduksi)</li>
+        <li>Mengeluarkan zat sisa (ekskresi)</li>
+      </ul>
+
+      <h3>2. Apa itu Klasifikasi?</h3>
+      <p>Klasifikasi adalah pengelompokan makhluk hidup berdasarkan persamaan dan perbedaan ciri. Ilmu yang mempelajari ini disebut <strong>Taksonomi</strong>, dipelopori oleh <strong>Carolus Linnaeus</strong>.</p>
+
+      <h3>3. Urutan Takson (Tingkatan Klasifikasi)</h3>
+      <p>Dari kelompok terbesar ke terkecil. Yuk, kita bahas satu per satu!</p>
+
+      <!-- Penjelasan Tiap Takson -->
+      <div class="takson-box">
+        <h4>👑 Kingdom (Kerajaan)</h4>
+        <p>Tingkatan tertinggi. Tempat berkumpulnya makhluk hidup dengan ciri paling umum.</p>
+        <span class="contoh">Contoh: Animalia, Plantae, Fungi, Protista, Monera.</span>
+      </div>
+
+      <div class="takson-box">
+        <h4>🌳 Filum / Divisio</h4>
+        <p>Di bawah Kingdom. Filum untuk hewan, Divisio untuk tumbuhan.</p>
+        <span class="contoh">Contoh: Filum Chordata (hewan bertulang belakang), Divisio Magnoliophyta (tumbuhan berbunga).</span>
+      </div>
+
+      <div class="takson-box">
+        <h4>📚 Class (Kelas)</h4>
+        <p>Di bawah Filum. Mengelompokkan makhluk hidup berdasarkan ciri yang lebih spesifik.</p>
+        <span class="contoh">Contoh: Class Mammalia (hewan menyusui), Class Aves (burung), Class Reptilia (reptil).</span>
+      </div>
+
+      <div class="takson-box">
+        <h4>📂 Order (Ordo)</h4>
+        <p>Di bawah Class. Mengelompokkan makhluk hidup yang memiliki ciri lebih mirip lagi.</p>
+        <span class="contoh">Contoh: Ordo Carnivora (pemakan daging), Ordo Primata (kera dan manusia).</span>
+      </div>
+
+      <div class="takson-box">
+        <h4>👨‍👩‍👧‍👦 Family (Famili)</h4>
+        <p>Di bawah Ordo. Terdiri dari beberapa Genus yang memiliki ciri serupa.</p>
+        <span class="contoh">Contoh: Famili Felidae (kucing-kucingan), Famili Hominidae (manusia dan kera besar).</span>
+      </div>
+
+      <div class="takson-box">
+        <h4>🏷️ Genus (Marga)</h4>
+        <p>Di bawah Famili. Menunjukkan nama "marga" dari makhluk hidup.</p>
+        <span class="contoh">Contoh: Genus Panthera (macan, singa), Genus Felis (kucing domestik), Genus Homo (manusia).</span>
+      </div>
+
+      <div class="takson-box">
+        <h4>🐾 Species (Jenis)</h4>
+        <p>Tingkatan terendah. Anggotanya memiliki ciri paling mirip dan dapat saling berkembang biak.</p>
+        <span class="contoh">Contoh: Panthera leo (singa), Felis catus (kucing rumahan), Homo sapiens (manusia modern).</span>
+      </div>
+
+      <h3>4. Sistem 5 Kingdom (Whittaker)</h3>
+      <p>Makhluk hidup dibagi menjadi 5 kingdom. Yuk, kita bahas satu per satu!</p>
+
+      <div class="kingdom-box">
+        <h4>🦠 1. Monera</h4>
+        <p>Makhluk hidup bersel satu yang <strong>tidak memiliki membran inti (prokariotik)</strong>.</p>
+        <ul>
+          <li><strong>Bakteri:</strong> E. coli, Lactobacillus (pembuat yoghurt).</li>
+          <li><strong>Ganggang biru:</strong> Anabaena, Oscillatoria.</li>
+        </ul>
+      </div>
+
+      <div class="kingdom-box" style="border-left-color: #0ea5e9; background: #f0f9ff;">
+        <h4>🔬 2. Protista</h4>
+        <p>Makhluk hidup bersel satu atau banyak yang <strong>memiliki membran inti (eukariotik)</strong>.</p>
+        <ul>
+          <li><strong>Mirip hewan:</strong> Amoeba, Paramecium.</li>
+          <li><strong>Mirip tumbuhan:</strong> Alga hijau, Euglena.</li>
+          <li><strong>Mirip jamur:</strong> Jamur lendir.</li>
+        </ul>
+      </div>
+
+      <div class="kingdom-box" style="border-left-color: #f59e0b; background: #fffbeb;">
+        <h4>🍄 3. Fungi (Jamur)</h4>
+        <p>Makhluk hidup yang <strong>tidak memiliki klorofil</strong>, sehingga tidak bisa fotosintesis.</p>
+        <ul>
+          <li><strong>Jamur merang:</strong> Jamur yang bisa dimakan.</li>
+          <li><strong>Ragi (Saccharomyces cerevisiae):</strong> Untuk membuat roti dan tape.</li>
+          <li><strong>Jamur oncom:</strong> Jamur yang tumbuh di ampas tahu.</li>
+        </ul>
+      </div>
+
+      <div class="kingdom-box" style="border-left-color: #22c55e; background: #f0fdf4;">
+        <h4>🌿 4. Plantae (Tumbuhan)</h4>
+        <p>Makhluk hidup yang <strong>memiliki klorofil</strong>, sehingga dapat membuat makanan sendiri.</p>
+        <ul>
+          <li><strong>Tidak berpembuluh:</strong> Lumut.</li>
+          <li><strong>Berpembuluh:</strong> Tumbuhan paku, tumbuhan berbiji (mangga, padi, jagung).</li>
+        </ul>
+      </div>
+
+      <div class="kingdom-box" style="border-left-color: #ef4444; background: #fef2f2;">
+        <h4>🐾 5. Animalia (Hewan)</h4>
+        <p>Makhluk hidup yang <strong>tidak memiliki klorofil</strong>, bergerak aktif, dan selnya tidak memiliki dinding sel.</p>
+        <ul>
+          <li><strong>Vertebrata:</strong> Ikan, katak, ular, burung, kucing.</li>
+          <li><strong>Invertebrata:</strong> Serangga, cacing, siput, ubur-ubur.</li>
+        </ul>
+      </div>
+
+      <h3>5. Tata Nama Ilmiah (Binomial Nomenklatur)</h3>
+      <ul>
+        <li>Terdiri dari 2 kata: Genus (huruf besar) + Spesies (huruf kecil).</li>
+        <li>Ditulis miring (<em>italic</em>) atau digaris bawah.</li>
+        <li>Contoh: <em>Oryza sativa</em> (padi), <em>Homo sapiens</em> (manusia).</li>
+      </ul>
+
+      <div class="fun-fact">
+        💡 <strong>Fun Fact:</strong> Jamur itu bukan tumbuhan loh! Karena dia nggak bisa fotosintesis. Dia masuk kingdom sendiri, yaitu Fungi.
+      </div>
+    </div>
+
+    <!-- GAME SECTION -->
+    <div class="game-section">
+      <h2>⚡ Rapid Fire: 20 Soal!</h2>
+      <p>Waktu kamu 90 detik. Jawab sebanyak mungkin!</p>
+      
+      <div class="game-board">
+        <div id="game-area">
+          <div class="question-box" id="question-text">Tekan tombol di bawah untuk mulai!</div>
+          <button class="btn-start" onclick="startGame()" id="btn-start">Mulai Game 🚀</button>
+          <div class="options-grid" id="options-container" style="display: none;">
+            <button class="option-btn" onclick="checkAnswer(this)">A</button>
+            <button class="option-btn" onclick="checkAnswer(this)">B</button>
+            <button class="option-btn" onclick="checkAnswer(this)">C</button>
+            <button class="option-btn" onclick="checkAnswer(this)">D</button>
+          </div>
+        </div>
+        <div id="game-score">Skor: 0 | Waktu: 90s</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const questions = [
+      { q: "Ciri makhluk hidup yang membedakannya dengan benda mati adalah...", a: "Bernapas", options: ["Bergerak", "Bernapas", "Berbentuk", "Berwarna"] },
+      { q: "Ilmu yang mempelajari pengelompokan makhluk hidup disebut...", a: "Taksonomi", options: ["Ekologi", "Taksonomi", "Morfologi", "Fisiologi"] },
+      { q: "Tokoh penemu sistem tata nama ilmiah adalah...", a: "Carolus Linnaeus", options: ["Charles Darwin", "Carolus Linnaeus", "Gregor Mendel", "Louis Pasteur"] },
+      { q: "Urutan takson paling tinggi adalah...", a: "Kingdom", options: ["Spesies", "Genus", "Famili", "Kingdom"] },
+      { q: "Urutan takson paling rendah adalah...", a: "Spesies", options: ["Kingdom", "Filum", "Kelas", "Spesies"] },
+      { q: "Bakteri memiliki sel tipe...", a: "Prokariotik", options: ["Eukariotik", "Prokariotik", "Multiseluler", "Jaringan"] },
+      { q: "Jamur tidak memiliki...", a: "Klorofil", options: ["Dinding sel", "Klorofil", "Spora", "Hifa"] },
+      { q: "Tumbuhan dapat membuat makanan sendiri karena memiliki...", a: "Klorofil", options: ["Klorofil", "Kloroplas", "Dinding sel", "Akar"] },
+      { q: "Hewan bergerak aktif karena...", a: "Tidak punya dinding sel", options: ["Punya klorofil", "Tidak punya dinding sel", "Punya akar", "Bersel satu"] },
+      { q: "Penulisan nama ilmiah padi yang benar adalah...", a: "Oryza sativa", options: ["Oryza Sativa", "oryza sativa", "Oryza sativa", "ORYZA SATIVA"] },
+      { q: "Sistem 5 kingdom dikemukakan oleh...", a: "Robert Whittaker", options: ["Carolus Linnaeus", "Robert Whittaker", "Aristoteles", "Ernst Haeckel"] },
+      { q: "Amoeba termasuk kingdom...", a: "Protista", options: ["Monera", "Protista", "Fungi", "Animalia"] },
+      { q: "Pohon mangga termasuk kingdom...", a: "Plantae", options: ["Plantae", "Animalia", "Fungi", "Protista"] },
+      { q: "Jamur merang termasuk kingdom...", a: "Fungi", options: ["Monera", "Plantae", "Fungi", "Protista"] },
+      { q: "Bakteri E. coli termasuk kingdom...", a: "Monera", options: ["Protista", "Fungi", "Animalia", "Monera"] },
+      { q: "Kucing termasuk kingdom...", a: "Animalia", options: ["Animalia", "Plantae", "Fungi", "Monera"] },
+      { q: "Alga hijau termasuk kingdom...", a: "Protista", options: ["Plantae", "Protista", "Monera", "Fungi"] },
+      { q: "Ragi (yeast) termasuk kingdom...", a: "Fungi", options: ["Fungi", "Monera", "Protista", "Plantae"] },
+      { q: "Ganggang biru termasuk kingdom...", a: "Monera", options: ["Protista", "Plantae", "Monera", "Fungi"] },
+      { q: "Paramecium termasuk kingdom...", a: "Protista", options: ["Monera", "Fungi", "Protista", "Animalia"] }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let gameActive = false;
+    let timeLeft = 90; 
+    let timerInterval;
+
+    function startGame() {
+      gameActive = true;
+      currentQ = 0;
+      score = 0;
+      timeLeft = 90;
+      
+      document.getElementById('btn-start').style.display = 'none';
+      document.getElementById('options-container').style.display = 'grid';
+      document.getElementById('game-score').innerText = `Skor: 0 | Waktu: ${timeLeft}s`;
+      
+      questions.sort(() => Math.random() - 0.5);
+      loadQuestion();
+
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        document.getElementById('game-score').innerText = `Skor: ${score} | Waktu: ${timeLeft}s`;
+        if (timeLeft <= 0) { endGame(); }
+      }, 1000);
+    }
+
+    function loadQuestion() {
+      if (currentQ >= questions.length) {
+  currentQ = 0;
+  questions.sort(() => Math.random() - 0.5);
+    }
+      
+      const q = questions[currentQ];
+      document.getElementById('question-text').innerText = q.q;
+      
+      const opts = document.querySelectorAll('.option-btn');
+      opts.forEach((btn, index) => {
+        btn.innerText = q.options[index];
+        btn.className = 'option-btn';
+        btn.disabled = false;
+      });
+    }
+
+    function checkAnswer(btn) {
+      if (!gameActive) return;
+      
+      const q = questions[currentQ];
+      const selected = btn.innerText;
+      
+      document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+
+      if (selected === q.a) {
+        btn.classList.add('correct');
+        score += 10;
+      } else {
+        btn.classList.add('wrong');
+        document.querySelectorAll('.option-btn').forEach(b => {
+          if (b.innerText === q.a) b.classList.add('correct');
+        });
+      }
+
+      setTimeout(() => {
+        currentQ++;
+        loadQuestion();
+      }, 600); 
+    }
+
+    function endGame() {
+      gameActive = false;
+      clearInterval(timerInterval);
+      document.getElementById('question-text').innerText = "Waktu Habis! ⏰";
+      document.getElementById('options-container').style.display = 'none';
+      document.getElementById('btn-start').innerText = "Main Lagi 🔄";
+      document.getElementById('btn-start').style.display = 'inline-block';
+    }
+  </script>
+</body>
+</html>

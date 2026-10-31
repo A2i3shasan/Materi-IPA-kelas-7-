@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pilih Materi Pelajaran</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { 
+    font-family: 'Segoe UI', system-ui, sans-serif; 
+    background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), url('https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1000&auto=format&fit=crop');
+    background-size: cover; background-position: center; background-attachment: fixed;
+    color: #fff; padding: 20px; min-height: 100vh; 
+  }
+  .container { max-width: 500px; margin: 0 auto; }
+  
+  /* Tombol Kembali ke Menu */
+  .back-btn { 
+    display: inline-flex; align-items: center; gap: 6px; 
+    text-decoration: none; color: #94a3b8; font-size: 14px; font-weight: 600; 
+    margin-bottom: 24px; padding: 10px 16px; 
+    background: rgba(30, 41, 59, 0.7); border-radius: 12px; 
+    border: 1px solid rgba(255,255,255,0.1); 
+    cursor: pointer;
+  }
+  
+  .header { margin-bottom: 28px; }
+  .header h1 { font-size: 28px; font-weight: 800; color: #60a5fa; margin-bottom: 6px; }
+  .header p { font-size: 14px; color: #cbd5e1; }
+  
+  /* List Kartu Pelajaran */
+  .list-materi { display: flex; flex-direction: column; gap: 16px; }
+  .card-materi { 
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(10px); 
+    padding: 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); 
+    text-decoration: none; color: #fff; transition: all 0.2s; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+  .card-materi:active { transform: scale(0.97); border-color: #818cf8; }
+  .card-materi .kiri { display: flex; align-items: center; gap: 16px; }
+  .card-materi .ikon { font-size: 32px; }
+  .card-materi h3 { font-size: 16px; font-weight: 700; color: #f1f5f9; margin-bottom: 4px; }
+  .card-materi p { font-size: 12px; color: #94a3b8; }
+  
+  /* Gembok Premium */
+  .badge-premium { background: #fef3c7; color: #b45309; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; border: 1px solid #fcd34d; }
+  
+  .panah { color: #60a5fa; font-size: 20px; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <!-- Tombol Kembali yang bener -->
+    <a onclick="window.location.href='menu.html'" class="back-btn">← Kembali ke Menu</a>
+
+    <div class="header">
+      <h1>Pilih Materi Pelajaran</h1>
+      <p>Klik salah satu materi untuk mulai belajar</p>
+    </div>
+
+    <div class="list-materi">
+      
+      <!-- MAPEL 1: Klasifikasi -->
+      <a href="materi-ipa-bab1.html" class="card-materi">
+        <div class="kiri">
+          <div class="ikon">🦠</div>
+          <div>
+            <h3>Klasifikasi Makhluk Hidup</h3>
+            <p>Bab 2 - IPA Kelas 7</p>
+          </div>
+        </div>
+        <span class="panah">→</span>
+      </a>
+
+      <!-- MAPEL 2: Suhu -->
+      <a href="#" class="card-materi" onclick="alert('Materi Suhu dan Kalor sedang disiapkan ya!')">
+        <div class="kiri">
+          <div class="ikon">🌡️</div>
+          <div>
+            <h3>Suhu dan Kalor</h3>
+            <p>Bab 4 - IPA Kelas 7</p>
+          </div>
+        </div>
+        <span class="panah">→</span>
+      </a>
+
+      <!-- MAPEL 3: Premium A -->
+      <div class="card-materi" onclick="cekPremium()">
+        <div class="kiri">
+          <div class="ikon">🫀</div>
+          <div>
+            <h3>Sistem Organisasi Kehidupan</h3>
+            <p>Materi Semester 2</p>
+          </div>
+        </div>
+        <div class="badge-premium">🔒 PREMIUM</div>
+      </div>
+
+      <!-- MAPEL 4: Premium B -->
+      <div class="card-materi" onclick="cekPremium()">
+        <div class="kiri">
+          <div class="ikon">🌿</div>
+          <div>
+            <h3>Interaksi Makhluk Hidup</h3>
+            <p>Materi Semester 2</p>
+          </div>
+        </div>
+        <div class="badge-premium">🔒 PREMIUM</div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Fungsi cek premium
+    function cekPremium() {
+      // Cek apakah user sudah beli (simulasi pakai localStorage)
+      const sudahBeli = localStorage.getItem('beli_premium');
+      
+      if (sudahBeli === 'true') {
+        alert("Materi terbuka! (Ini simulasi, nanti kita bikin halamannya)");
+      } else {
+        const kode = prompt("Materi ini Premium. Masukkan kode akses (Rp 10.000):");
+        if (kode === "GURU10K") {
+          localStorage.setItem('beli_premium', 'true');
+          alert("Berhasil! Materi premium terbuka.");
+        } else if (kode !== null) {
+          alert("Kode salah!");
+        }
+      }
+    }
+  </script>
+</body>
+</html>

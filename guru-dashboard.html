@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beranda Guru</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  /* Latar Belakang Ceria */
+  body { 
+    font-family: 'Segoe UI', system-ui, sans-serif; 
+    background: linear-gradient(135deg, #fdf4ff 0%, #e0f2fe 50%, #dcfce7 100%);
+    color: #1e293b; 
+    padding: 20px; 
+    min-height: 100vh; 
+    background-attachment: fixed;
+  }
+  
+  .container { max-width: 500px; margin: 0 auto; }
+  
+  /* Header Lucu */
+  .header { 
+    display: flex; align-items: center; justify-content: space-between; 
+    background: #ffffff; padding: 16px 20px; border-radius: 24px;
+    box-shadow: 0 8px 20px rgba(167, 139, 250, 0.15); 
+    margin-bottom: 24px; border: 2px solid #e9d5ff;
+  }
+  .header .kiri { display: flex; align-items: center; gap: 12px; }
+  .header .avatar { font-size: 32px; background: #fef3c7; padding: 8px; border-radius: 50%; }
+  .header h1 { font-size: 20px; font-weight: 800; color: #7c3aed; }
+  .header p { font-size: 12px; color: #64748b; font-weight: 600; }
+  
+  .logout-btn { 
+    background: #fee2e2; color: #dc2626; padding: 10px 14px; 
+    border-radius: 12px; font-weight: 800; font-size: 13px; 
+    border: none; cursor: pointer; transition: 0.2s;
+  }
+  .logout-btn:active { transform: scale(0.92); }
+
+  /* Grid Kartu */
+  .grid-mapel { display: flex; flex-direction: column; gap: 18px; }
+  
+  @keyframes popIn { 
+    0% { opacity: 0; transform: scale(0.9) translateY(10px); } 
+    100% { opacity: 1; transform: scale(1) translateY(0); } 
+  }
+  
+  .card { 
+    background: #ffffff; padding: 20px; border-radius: 24px; 
+    display: flex; align-items: center; justify-content: space-between; 
+    text-decoration: none; color: inherit; transition: all 0.2s; 
+    cursor: pointer; position: relative; overflow: hidden;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.05);
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  }
+  .card:active { transform: translateY(6px); box-shadow: 0 0 0 rgba(0,0,0,0.05); }
+  
+  /* Warna-warni tiap kartu */
+  .card.warna-1 { border: 3px solid #93c5fd; background: #eff6ff; }
+  .card.warna-2 { border: 3px solid #fcd34d; background: #fefce8; }
+  .card.warna-3 { border: 3px solid #f9a8d4; background: #fdf2f8; }
+  .card.warna-4 { border: 3px solid #86efac; background: #f0fdf4; }
+
+  .card .kiri { display: flex; align-items: center; gap: 16px; }
+  .card .ikon { 
+    font-size: 40px; background: #fff; padding: 10px; 
+    border-radius: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    animation: floatIcon 3s ease-in-out infinite;
+  }
+  @keyframes floatIcon { 0% { transform: translateY(0px); } 50% { transform: translateY(-5px); } 100% { transform: translateY(0px); } }
+  
+  .card .judul { font-weight: 900; font-size: 16px; color: #1e293b; margin-bottom: 4px; }
+  .card .sub { font-size: 12px; color: #64748b; font-weight: 600; }
+  
+  .badge-premium { 
+    background: linear-gradient(135deg, #f59e0b, #eab308); 
+    color: white; padding: 8px 12px; border-radius: 16px; 
+    font-size: 11px; font-weight: 900; border: 2px solid #fef08a;
+    box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+  }
+  
+  /* Modal Premium Lucu */
+  .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(5px); justify-content: center; align-items: center; z-index: 100; }
+  .modal.show { display: flex; }
+  .modal-content { background: #fff; padding: 28px 24px; border-radius: 32px; max-width: 340px; width: 90%; text-align: center; border: 4px solid #fcd34d; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+  .modal-content .ikon-modal { font-size: 60px; margin-bottom: 10px; animation: floatIcon 2s infinite; }
+  .modal-content h2 { color: #b45309; margin-bottom: 8px; font-size: 22px; }
+  .modal-content p { font-size: 14px; color: #64748b; margin-bottom: 20px; line-height: 1.5; }
+  .modal-content input { width: 100%; padding: 16px; border-radius: 16px; border: 2px solid #cbd5e1; margin-bottom: 16px; text-align: center; font-size: 18px; font-weight: 900; text-transform: uppercase; outline: none; background: #f8fafc; }
+  .modal-content input:focus { border-color: #f59e0b; }
+  .modal-content button { width: 100%; padding: 16px; background: linear-gradient(135deg, #f59e0b, #ea580c); color: white; border: none; border-radius: 16px; font-weight: 900; font-size: 16px; cursor: pointer; box-shadow: 0 6px 0 #b45309; transition: 0.1s; }
+  .modal-content button:active { transform: translateY(6px); box-shadow: 0 0 0 #b45309; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="kiri">
+        <div class="avatar">🧑‍🏫</div>
+        <div>
+          <h1>Halo, Guru Hebat!</h1>
+          <p>Mau ngajar apa hari ini?</p>
+        </div>
+      </div>
+      <button class="logout-btn" onclick="logout()">Keluar</button>
+    </div>
+
+    <div class="grid-mapel" id="list-mapel"></div>
+  </div>
+
+  <div class="modal" id="modal-premium">
+    <div class="modal-content">
+      <div class="ikon-modal">🔒</div>
+      <h2>Materi Premium!</h2>
+      <p>Buka semua materi semester 2 dengan memasukkan kode akses rahasia.</p>
+      <input type="text" id="input-kode" placeholder="Ketik Kode">
+      <button onclick="cekKodePremium()">Buka Kunci 🔓</button>
+    </div>
+  </div>
+
+  <script>
+    const guruAktif = localStorage.getItem('guru_aktif');
+    if (!guruAktif) { window.location.href = "guru-login.html"; }
+
+    const daftarMateri = [
+      { id: 1, judul: "Klasifikasi Makhluk Hidup", ikon: "🦠", file: "materi-ipa-bab1.html", premium: false, warna: "warna-1" },
+      { id: 2, judul: "Suhu dan Kalor", ikon: "🌡️", file: "materi-suhu.html", premium: false, warna: "warna-2" },
+      { id: 3, judul: "Sistem Organisasi Kehidupan", ikon: "🫀", file: "materi-organisasi.html", premium: true, warna: "warna-3" },
+      { id: 4, judul: "Interaksi Makhluk Hidup", ikon: "🌿", file: "materi-interaksi.html", premium: true, warna: "warna-4" }
+    ];
+
+    // === DAFTAR KODE PREMIUM ===
+    const daftarKode = {
+      "AZYB37": { durasi: 1 },    // 1 Hari
+      "AHZY99": { durasi: 7 },    // 1 Minggu
+      "CZYH77": { durasi: 30 }    // 1 Bulan
+    };
+
+    function renderMapel() {
+      const container = document.getElementById('list-mapel');
+      container.innerHTML = '';
+      
+      // === CEK STATUS PREMIUM ===
+      let isPremium = false;
+      const expiredTime = localStorage.getItem('premium_expired');
+      
+      if (expiredTime) {
+        const sekarang = new Date().getTime();
+        if (sekarang < Number(expiredTime)) {
+          isPremium = true;
+        } else {
+          localStorage.removeItem('premium_expired');
+          isPremium = false;
+        }
+      }
+
+      daftarMateri.forEach((materi, index) => {
+        let card = document.createElement('div');
+        card.className = `card ${materi.warna}`;
+        card.style.animationDelay = `${index * 0.1}s`;
+        
+        let badge = materi.premium && !isPremium 
+          ? `<div class="badge-premium">🔒 PREMIUM</div>` 
+          : `<span style="color:#22c55e; font-size:24px; font-weight:bold;">➔</span>`;
+
+        card.innerHTML = `
+          <div class="kiri">
+            <div class="ikon">${materi.ikon}</div>
+            <div>
+              <div class="judul">${materi.judul}</div>
+              <div class="sub">${materi.sub}</div>
+            </div>
+          </div>
+          ${badge}
+        `;
+
+        card.onclick = () => {
+          if (materi.premium && !isPremium) {
+            document.getElementById('modal-premium').classList.add('show');
+          } else {
+            if (materi.file !== "#") {
+              window.location.href = materi.file;
+            } else {
+              alert("Materi ini sedang disiapkan!");
+            }
+          }
+        };
+        container.appendChild(card);
+      });
+    }
+
+    function cekKodePremium() {
+      const kode = document.getElementById('input-kode').value.toUpperCase().trim();
+      
+      if (daftarKode[kode]) {
+        const paket = daftarKode[kode];
+        const sekarang = new Date().getTime();
+        const kedaluwarsa = sekarang + (paket.durasi * 24 * 60 * 60 * 1000);
+        
+        localStorage.setItem('premium_expired', kedaluwarsa);
+        
+        document.getElementById('modal-premium').classList.remove('show');
+        alert(`Berhasil! Premium aktif selama ${paket.durasi} hari.`);
+        renderMapel(); // Render ulang biar langsung kebuka
+      } else {
+        alert("Kode akses salah!");
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('guru_aktif');
+      window.location.href = "guru-login.html";
+    }
+
+    renderMapel();
+  </script>
+</body>
+</html>

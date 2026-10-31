@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Materi IPA: Suhu dan Kalor</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  /* Tema Cerah (Biru Muda & Kuning) */
+  body { 
+    font-family: 'Segoe UI', system-ui, sans-serif; 
+    background: linear-gradient(135deg, #e0f2fe 0%, #fef08a 100%);
+    color: #1e293b; 
+    padding: 20px; 
+    min-height: 100vh; 
+  }
+
+  .container { max-width: 500px; margin: 0 auto; }
+  
+  .back-btn { 
+    display: inline-flex; align-items: center; gap: 6px; 
+    text-decoration: none; color: #0369a1; font-size: 14px; font-weight: 700; 
+    margin-bottom: 20px; padding: 10px 16px; 
+    background: #f0f9ff; border-radius: 12px; 
+    border: 2px solid #7dd3fc; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+  
+  .character-box { text-align: center; margin-bottom: 20px; animation: float 3s ease-in-out infinite; }
+  @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+  .character-img { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 5px solid #fff; box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3); background-color: #fff; }
+  .character-name { font-size: 16px; font-weight: 800; color: #0369a1; margin-top: 10px; background: #f0f9ff; display: inline-block; padding: 6px 16px; border-radius: 20px; border: 2px solid #7dd3fc; }
+
+  .materi-card { 
+    background: #ffffff; padding: 24px; border-radius: 24px; border: 3px solid #7dd3fc;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05); margin-bottom: 24px;
+  }
+  
+  .materi-card h2 { font-size: 22px; color: #0284c7; margin-bottom: 16px; }
+  .materi-card h3 { font-size: 18px; color: #d97706; margin-top: 24px; margin-bottom: 10px; }
+  .materi-card p { font-size: 15px; line-height: 1.7; color: #334155; margin-bottom: 12px; }
+  .materi-card ul { padding-left: 20px; margin-bottom: 12px; }
+  .materi-card li { font-size: 15px; line-height: 1.7; color: #334155; margin-bottom: 6px; }
+  .materi-card strong { color: #e11d48; }
+  
+  /* Kotak Penjelasan */
+  .info-box {
+    background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;
+    padding: 16px; margin-bottom: 12px;
+  }
+  .info-box h4 { font-size: 16px; color: #0f172a; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .info-box p { font-size: 14px; line-height: 1.6; margin-bottom: 0; color: #475569; }
+
+  .fun-fact {
+    background: #fef9c3; border-left: 5px solid #eab308;
+    padding: 14px 16px; border-radius: 12px; margin-top: 16px; font-weight: 500;
+    color: #854d0e; font-size: 15px;
+  }
+
+  /* GAME SECTION */
+  .game-section {
+    background: linear-gradient(135deg, #f0fdf4, #e0f2fe);
+    padding: 24px; border-radius: 24px; border: 3px solid #f59e0b;
+    box-shadow: 0 10px 25px rgba(245, 158, 11, 0.2); text-align: center; margin-bottom: 20px;
+  }
+  .game-section h2 { font-size: 24px; margin-bottom: 8px; color: #b45309; }
+  .game-section p { font-size: 15px; color: #64748b; margin-bottom: 20px; font-weight: 500; }
+  
+  .game-board { background: #fff; padding: 20px; border-radius: 20px; }
+  .question-box { font-size: 18px; font-weight: 800; color: #1e293b; margin-bottom: 20px; min-height: 60px; display: flex; align-items: center; justify-content: center; text-align: center; }
+  .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .option-btn { padding: 16px; background: #f8fafc; border: 2px solid #cbd5e1; border-radius: 16px; font-size: 15px; font-weight: 700; color: #334155; cursor: pointer; transition: all 0.1s; box-shadow: 0 4px 0 #cbd5e1; }
+  .option-btn:active { transform: translateY(4px); box-shadow: 0 0 0 #cbd5e1; }
+  .option-btn.correct { background: #dcfce7; border-color: #22c55e; color: #166534; box-shadow: 0 4px 0 #22c55e; }
+  .option-btn.wrong { background: #fee2e2; border-color: #ef4444; color: #991b1b; box-shadow: 0 4px 0 #ef4444; }
+  #game-score { font-size: 18px; font-weight: 900; color: #ea580c; margin-top: 15px; }
+  .btn-start { padding: 14px 32px; background: #f59e0b; color: white; border: none; border-radius: 16px; font-size: 18px; font-weight: 800; cursor: pointer; box-shadow: 0 6px 0 #b45309; transition: all 0.1s; margin-top: 10px; }
+  .btn-start:active { transform: translateY(6px); box-shadow: 0 0 0 #b45309; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <a href="guru-dashboard.html" class="back-btn">← Kembali ke Dashboard</a>
+    
+    <div class="character-box">
+      <img src="https://img.freepik.com/free-vector/cute-boy-wearing-school-uniform-waving-hand-cartoon_138676-2653.jpg" alt="Karakter Anak SMP" class="character-img">
+      <div class="character-name">Hai, aku Budi! Ayo belajar Suhu & Kalor! 🌡️</div>
+    </div>
+
+    <div class="materi-card">
+      <h2>🌡️ Suhu dan Kalor</h2>
+      
+      <h3>1. Apa itu Suhu?</h3>
+      <p>Suhu adalah derajat panas atau dinginnya suatu benda. Alat untuk mengukur suhu adalah <strong>termometer</strong>.</p>
+      <p>Satuan suhu dalam SI adalah <strong>Kelvin (K)</strong>, tapi di kehidupan sehari-hari kita pakai <strong>Celsius (°C)</strong>.</p>
+
+      <h3>2. Skala Termometer</h3>
+      <p>Ada 4 skala suhu yang perlu kamu tahu:</p>
+      
+      <div class="info-box">
+        <h4>🌡️ Celsius, Reamur, Fahrenheit, Kelvin</h4>
+        <ul>
+          <li><strong>Celsius:</strong> Titik beku 0°C, titik didih 100°C.</li>
+          <li><strong>Reamur:</strong> Titik beku 0°R, titik didih 80°R.</li>
+          <li><strong>Fahrenheit:</strong> Titik beku 32°F, titik didih 212°F.</li>
+          <li><strong>Kelvin:</strong> Titik beku 273 K, titik didih 373 K.</li>
+        </ul>
+      </div>
+
+      <h3>3. Konversi Suhu</h3>
+      <div class="info-box" style="border-left: 5px solid #ef4444; background: #fef2f2;">
+        <h4>🌡️ Dari Celsius (C)</h4>
+        <ul>
+          <li><strong>Ke Reamur (R):</strong> R = (4/5) × C</li>
+          <li><strong>Ke Fahrenheit (F):</strong> F = (9/5 × C) + 32</li>
+          <li><strong>Ke Kelvin (K):</strong> K = C + 273</li>
+        </ul>
+      </div>
+
+      <div class="info-box" style="border-left: 5px solid #22c55e; background: #f0fdf4;">
+        <h4>🌡️ Balik ke Celsius (C)</h4>
+        <ul>
+          <li><strong>Dari Reamur:</strong> C = (5/4) × R</li>
+          <li><strong>Dari Fahrenheit:</strong> C = 5/9 × (F - 32)</li>
+          <li><strong>Dari Kelvin:</strong> C = K - 273</li>
+        </ul>
+      </div>
+
+      <h3>4. Apa itu Kalor?</h3>
+      <p>Kalor adalah energi panas yang berpindah dari benda bersuhu tinggi ke benda bersuhu rendah. Satuan kalor adalah <strong>Joule (J)</strong>.</p>
+      
+      <div class="info-box">
+        <h4>🔥 Rumus Kalor</h4>
+        <p><strong>Q = m × c × ΔT</strong></p>
+        <ul>
+          <li><strong>Q:</strong> Kalor (Joule)</li>
+          <li><strong>m:</strong> Massa (kg)</li>
+          <li><strong>c:</strong> Kalor jenis (J/kg°C)</li>
+          <li><strong>ΔT:</strong> Perubahan suhu (°C)</li>
+        </ul>
+      </div>
+
+      <h3>5. Perpindahan Kalor</h3>
+      <div class="info-box" style="border-left: 5px solid #3b82f6;">
+        <h4>1. Konduksi (Hantaran)</h4>
+        <p>Perpindahan kalor melalui zat padat tanpa disertai perpindahan partikel. Contoh: sendok logam panas saat dicelup ke teh panas.</p>
+      </div>
+
+      <div class="info-box" style="border-left: 5px solid #22c55e;">
+        <h4>2. Konveksi (Aliran)</h4>
+        <p>Perpindahan kalor melalui zat cair atau gas yang disertai perpindahan partikel. Contoh: air mendidih, angin laut, angin darat.</p>
+      </div>
+
+      <div class="info-box" style="border-left: 5px solid #f59e0b;">
+        <h4>3. Radiasi (Pancaran)</h4>
+        <p>Perpindahan kalor tanpa memerlukan medium. Contoh: panas matahari sampai ke bumi, panas api unggun.</p>
+      </div>
+
+      <div class="fun-fact">
+        💡 <strong>Fun Fact:</strong> Kenapa pakaian hitam lebih panas di siang hari? Karena warna hitam menyerap radiasi kalor lebih baik daripada warna putih!
+      </div>
+    </div>
+
+    <!-- GAME SECTION -->
+    <div class="game-section">
+      <h2>⚡ Rapid Fire: 15 Soal!</h2>
+      <p>Jawab semua soal sebelum waktu habis!</p>
+      
+      <div class="game-board">
+        <div id="game-area">
+          <div class="question-box" id="question-text">Tekan tombol di bawah untuk mulai!</div>
+          <button class="btn-start" onclick="startGame()" id="btn-start">Mulai Game 🚀</button>
+          <div class="options-grid" id="options-container" style="display: none;">
+            <button class="option-btn" onclick="checkAnswer(this)">A</button>
+            <button class="option-btn" onclick="checkAnswer(this)">B</button>
+            <button class="option-btn" onclick="checkAnswer(this)">C</button>
+            <button class="option-btn" onclick="checkAnswer(this)">D</button>
+          </div>
+        </div>
+        <div id="game-score">Skor: 0 | Waktu: 90s</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // === 15 SOAL SUHU & KALOR ===
+    const questions = [
+      { q: "Alat untuk mengukur suhu adalah...", a: "Termometer", options: ["Barometer", "Termometer", "Higrometer", "Anemometer"] },
+      { q: "Satuan suhu dalam SI adalah...", a: "Kelvin", options: ["Celsius", "Fahrenheit", "Kelvin", "Reamur"] },
+      { q: "Titik didih air pada skala Celsius adalah...", a: "100°C", options: ["0°C", "50°C", "100°C", "212°C"] },
+      { q: "Titik beku air pada skala Fahrenheit adalah...", a: "32°F", options: ["0°F", "32°F", "100°F", "212°F"] },
+      { q: "Kalor adalah energi yang berpindah karena perbedaan...", a: "Suhu", options: ["Massa", "Volume", "Suhu", "Warna"] },
+      { q: "Satuan kalor adalah...", a: "Joule", options: ["Newton", "Joule", "Watt", "Pascal"] },
+      { q: "Rumus kalor adalah...", a: "Q = m × c × ΔT", options: ["Q = m × g", "Q = m × c × ΔT", "Q = v × t", "Q = p × l"] },
+      { q: "Perpindahan kalor melalui zat padat disebut...", a: "Konduksi", options: ["Konveksi", "Radiasi", "Konduksi", "Evaporasi"] },
+      { q: "Perpindahan kalor yang disertai perpindahan partikel disebut...", a: "Konveksi", options: ["Konduksi", "Radiasi", "Konveksi", "Sublimasi"] },
+      { q: "Panas matahari sampai ke bumi melalui...", a: "Radiasi", options: ["Konduksi", "Konveksi", "Radiasi", "Induksi"] },
+      { q: "Contoh peristiwa konveksi adalah...", a: "Air mendidih", options: ["Sendok panas", "Air mendidih", "Panas matahari", "Besi dipanaskan"] },
+      { q: "Warna yang paling baik menyerap radiasi kalor adalah...", a: "Hitam", options: ["Putih", "Hitam", "Perak", "Emas"] },
+      { q: "Konversi 25°C ke Kelvin adalah...", a: "298 K", options: ["248 K", "273 K", "298 K", "323 K"] },
+      { q: "Suhu 40°C sama dengan...", a: "32°R", options: ["20°R", "24°R", "32°R", "36°R"] },
+      { q: "Pakaian putih lebih dingin karena...", a: "Memantulkan radiasi", options: ["Menyerap radiasi", "Memantulkan radiasi", "Menghasilkan kalor", "Menghentikan konduksi"] }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let gameActive = false;
+    let timeLeft = 90; 
+    let timerInterval;
+
+    function startGame() {
+      gameActive = true;
+      currentQ = 0;
+      score = 0;
+      timeLeft = 90;
+      
+      document.getElementById('btn-start').style.display = 'none';
+      document.getElementById('options-container').style.display = 'grid';
+      document.getElementById('game-score').innerText = `Skor: 0 | Waktu: ${timeLeft}s`;
+      
+      questions.sort(() => Math.random() - 0.5);
+      loadQuestion();
+
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        document.getElementById('game-score').innerText = `Skor: ${score} | Waktu: ${timeLeft}s`;
+        if (timeLeft <= 0) { endGame(); }
+      }, 1000);
+    }
+
+    function loadQuestion() {
+      // JIKA SOAL HABIS, LANGSUNG SELESAI (TIDAK NGULANG)
+      if (currentQ >= questions.length) {
+        endGame();
+        return;
+      }
+      
+      const q = questions[currentQ];
+      document.getElementById('question-text').innerText = q.q;
+      
+      const opts = document.querySelectorAll('.option-btn');
+      opts.forEach((btn, index) => {
+        btn.innerText = q.options[index];
+        btn.className = 'option-btn';
+        btn.disabled = false;
+      });
+    }
+
+    function checkAnswer(btn) {
+      if (!gameActive) return;
+      
+      const q = questions[currentQ];
+      const selected = btn.innerText;
+      
+      document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+
+      if (selected === q.a) {
+        btn.classList.add('correct');
+        score += 10;
+      } else {
+        btn.classList.add('wrong');
+        document.querySelectorAll('.option-btn').forEach(b => {
+          if (b.innerText === q.a) b.classList.add('correct');
+        });
+      }
+
+      setTimeout(() => {
+        currentQ++;
+        loadQuestion();
+      }, 600); 
+    }
+
+    function endGame() {
+      gameActive = false;
+      clearInterval(timerInterval);
+      
+      // TAMPILKAN PESAN SELESAI DAN SKOR AKHIR
+      document.getElementById('question-text').innerHTML = `🎉 <b>Selesai!</b><br>Skor Akhir: ${score}`;
+      document.getElementById('options-container').style.display = 'none';
+      document.getElementById('btn-start').innerText = "Main Lagi 🔄";
+      document.getElementById('btn-start').style.display = 'inline-block';
+    }
+  </script>
+</body>
+</html>

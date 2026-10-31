@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Guru</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1e1b4b, #4338ca); color: #fff; padding: 20px; min-height: 100vh; display: flex; justify-content: center; align-items: center; }
+  .box { background: rgba(30, 41, 59, 0.9); padding: 32px 24px; border-radius: 24px; max-width: 400px; width: 100%; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+  .icon { font-size: 60px; margin-bottom: 16px; }
+  h1 { font-size: 24px; color: #a78bfa; margin-bottom: 8px; }
+  p { font-size: 14px; color: #94a3b8; margin-bottom: 24px; }
+  input { width: 100%; padding: 16px; border-radius: 12px; border: 2px solid #334155; background: #1e293b; color: #fff; font-size: 16px; margin-bottom: 16px; outline: none; }
+  input:focus { border-color: #a78bfa; }
+  .btn { width: 100%; padding: 16px; background: linear-gradient(135deg, #a78bfa, #7c3aed); color: #fff; border: none; border-radius: 12px; font-weight: 800; font-size: 16px; cursor: pointer; }
+  .btn:active { transform: scale(0.97); }
+  .link { display: block; margin-top: 20px; color: #94a3b8; font-size: 14px; text-decoration: none; cursor: pointer; }
+  #pesan { margin-top: 15px; font-size: 14px; font-weight: bold; min-height: 20px; }
+</style>
+</head>
+<body>
+  <div class="box">
+    <div class="icon">👨‍🏫</div>
+    <h1>Portal Guru</h1>
+    <p>Masuk atau daftar untuk mengakses materi.</p>
+    
+    <input type="email" id="email" placeholder="Email Guru">
+    <input type="password" id="password" placeholder="Password">
+    
+    <button class="btn" id="btn-submit" onclick="proses()">Masuk 🚀</button>
+    <a class="link" id="link-toggle" onclick="toggleMode()">Belum punya akun? Daftar di sini</a>
+    
+    <div id="pesan"></div>
+  </div>
+
+  <script>
+    let modeDaftar = false;
+
+    function toggleMode() {
+      modeDaftar = !modeDaftar;
+      document.getElementById('pesan').innerText = "";
+      if (modeDaftar) {
+        document.querySelector('h1').innerText = "Daftar Guru Baru";
+        document.querySelector('p').innerText = "Buat akun untuk mulai mengajar.";
+        document.getElementById('btn-submit').innerText = "Daftar Sekarang 📝";
+        document.getElementById('link-toggle').innerText = "Sudah punya akun? Masuk di sini";
+      } else {
+        document.querySelector('h1').innerText = "Portal Guru";
+        document.querySelector('p').innerText = "Masuk atau daftar untuk mengakses materi.";
+        document.getElementById('btn-submit').innerText = "Masuk 🚀";
+        document.getElementById('link-toggle').innerText = "Belum punya akun? Daftar di sini";
+      }
+    }
+
+    function proses() {
+      const email = document.getElementById('email').value.trim().toLowerCase();
+      const pass = document.getElementById('password').value;
+      const pesan = document.getElementById('pesan');
+
+      if (email === "" || pass === "") {
+        pesan.style.color = "#ef4444"; pesan.innerText = "Email dan Password wajib diisi!";
+        return;
+      }
+
+      let users = JSON.parse(localStorage.getItem('data_guru')) || {};
+
+      if (modeDaftar) {
+        if (users[email]) {
+          pesan.style.color = "#ef4444"; pesan.innerText = "Email sudah terdaftar!";
+          return;
+        }
+        users[email] = { sandi: pass, premium: false };
+        localStorage.setItem('data_guru', JSON.stringify(users));
+        pesan.style.color = "#22c55e"; pesan.innerText = "Pendaftaran berhasil! Silakan login.";
+        toggleMode();
+      } else {
+        if (users[email] && users[email].sandi === pass) {
+          localStorage.setItem('guru_aktif', email);
+          window.location.href = "guru-dashboard.html";
+        } else {
+          pesan.style.color = "#ef4444"; pesan.innerText = "Email atau Password salah!";
+        }
+      }
+    }
+  </script>
+</body>
+</html>

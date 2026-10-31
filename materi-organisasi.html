@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Materi IPA: Sistem Organisasi Kehidupan</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  /* Tema Cerah (Pink & Ungu Muda) */
+  body { 
+    font-family: 'Segoe UI', system-ui, sans-serif; 
+    background: linear-gradient(135deg, #fdf2f8 0%, #f3e8ff 100%);
+    color: #1e293b; 
+    padding: 20px; 
+    min-height: 100vh; 
+  }
+
+  .container { max-width: 500px; margin: 0 auto; }
+  
+  .back-btn { 
+    display: inline-flex; align-items: center; gap: 6px; 
+    text-decoration: none; color: #86198f; font-size: 14px; font-weight: 700; 
+    margin-bottom: 20px; padding: 10px 16px; 
+    background: #fdf4ff; border-radius: 12px; 
+    border: 2px solid #f0abfc; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+  
+  .character-box { text-align: center; margin-bottom: 20px; animation: float 3s ease-in-out infinite; }
+  @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+  .character-img { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 5px solid #fff; box-shadow: 0 10px 20px rgba(219, 39, 119, 0.3); background-color: #fff; }
+  .character-name { font-size: 16px; font-weight: 800; color: #be185d; margin-top: 10px; background: #fdf2f8; display: inline-block; padding: 6px 16px; border-radius: 20px; border: 2px solid #fbcfe8; }
+
+  .materi-card { 
+    background: #ffffff; padding: 24px; border-radius: 24px; border: 3px solid #fbcfe8;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05); margin-bottom: 24px;
+  }
+  
+  .materi-card h2 { font-size: 22px; color: #be185d; margin-bottom: 16px; }
+  .materi-card h3 { font-size: 18px; color: #7e22ce; margin-top: 24px; margin-bottom: 10px; }
+  .materi-card p { font-size: 15px; line-height: 1.7; color: #334155; margin-bottom: 12px; }
+  .materi-card ul { padding-left: 20px; margin-bottom: 12px; }
+  .materi-card li { font-size: 15px; line-height: 1.7; color: #334155; margin-bottom: 6px; }
+  .materi-card strong { color: #db2777; }
+  
+  /* Ilustrasi Emoji Raksasa */
+  .ilustrasi-emoji {
+    text-align: center;
+    font-size: 80px;
+    margin: 20px 0;
+    background: #fdf4ff;
+    border-radius: 20px;
+    padding: 20px;
+    border: 2px dashed #d8b4fe;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+  .info-box {
+    background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 12px;
+    padding: 16px; margin-bottom: 12px;
+  }
+  .info-box h4 { font-size: 16px; color: #86198f; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .info-box p { font-size: 14px; line-height: 1.6; margin-bottom: 0; color: #4c1d95; }
+
+  .fun-fact {
+    background: #fef9c3; border-left: 5px solid #eab308;
+    padding: 14px 16px; border-radius: 12px; margin-top: 16px; font-weight: 500;
+    color: #854d0e; font-size: 15px;
+  }
+
+  /* GAME SECTION */
+  .game-section {
+    background: linear-gradient(135deg, #fdf4ff, #e0f2fe);
+    padding: 24px; border-radius: 24px; border: 3px solid #a855f7;
+    box-shadow: 0 10px 25px rgba(168, 85, 247, 0.2); text-align: center; margin-bottom: 20px;
+  }
+  .game-section h2 { font-size: 24px; margin-bottom: 8px; color: #7e22ce; }
+  .game-section p { font-size: 15px; color: #64748b; margin-bottom: 20px; font-weight: 500; }
+  
+  .game-board { background: #fff; padding: 20px; border-radius: 20px; }
+  .question-box { font-size: 18px; font-weight: 800; color: #1e293b; margin-bottom: 20px; min-height: 60px; display: flex; align-items: center; justify-content: center; text-align: center; }
+  .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .option-btn { padding: 16px; background: #f8fafc; border: 2px solid #cbd5e1; border-radius: 16px; font-size: 15px; font-weight: 700; color: #334155; cursor: pointer; transition: all 0.1s; box-shadow: 0 4px 0 #cbd5e1; }
+  .option-btn:active { transform: translateY(4px); box-shadow: 0 0 0 #cbd5e1; }
+  .option-btn.correct { background: #dcfce7; border-color: #22c55e; color: #166534; box-shadow: 0 4px 0 #22c55e; }
+  .option-btn.wrong { background: #fee2e2; border-color: #ef4444; color: #991b1b; box-shadow: 0 4px 0 #ef4444; }
+  #game-score { font-size: 18px; font-weight: 900; color: #7e22ce; margin-top: 15px; }
+  .btn-start { padding: 14px 32px; background: #a855f7; color: white; border: none; border-radius: 16px; font-size: 18px; font-weight: 800; cursor: pointer; box-shadow: 0 6px 0 #7e22ce; transition: all 0.1s; margin-top: 10px; }
+  .btn-start:active { transform: translateY(6px); box-shadow: 0 0 0 #7e22ce; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <a href="guru-dashboard.html" class="back-btn">← Kembali ke Dashboard</a>
+    
+    <div class="character-box">
+      <img src="https://img.freepik.com/free-vector/cute-girl-wearing-school-uniform-cartoon_138676-2740.jpg" alt="Karakter Anak SMP" class="character-img">
+      <div class="character-name">Hai, aku Siti! Ayo belajar Organisasi Kehidupan! 🔬</div>
+    </div>
+
+    <div class="materi-card">
+      <h2>🔬 Sistem Organisasi Kehidupan</h2>
+      
+      <h3>1. Tingkatan Organisasi Kehidupan</h3>
+      <p>Kehidupan itu tersusun rapi dari yang paling kecil sampai paling besar. Urutannya:</p>
+      
+      <div class="info-box">
+        <h4>📊 Urutan dari Kecil ke Besar</h4>
+        <ul>
+          <li><strong>Sel:</strong> Unit terkecil penyusun makhluk hidup.</li>
+          <li><strong>Jaringan:</strong> Kumpulan sel yang punya fungsi sama.</li>
+          <li><strong>Organ:</strong> Kumpulan jaringan yang bekerja sama.</li>
+          <li><strong>Sistem Organ:</strong> Kumpulan organ yang bekerja sama.</li>
+          <li><strong>Organisme:</strong> Makhluk hidup utuh (misal: manusia).</li>
+        </ul>
+      </div>
+
+      <h3>2. Sel</h3>
+      <p>Sel adalah unit struktural dan fungsional terkecil penyusun makhluk hidup.</p>
+      
+      <!-- Ilustrasi Sel -->
+      <div class="ilustrasi-emoji">🦠🧬</div>
+
+      <p>Ada dua tipe sel:</p>
+      <ul>
+        <li><strong>Prokariotik:</strong> Tidak punya membran inti (contoh: bakteri).</li>
+        <li><strong>Eukariotik:</strong> Punya membran inti (contoh: sel tumbuhan dan hewan).</li>
+      </ul>
+
+      <div class="info-box">
+        <h4>🧬 Bagian-bagian Sel</h4>
+        <ul>
+          <li><strong>Membran sel:</strong> Mengatur keluar masuknya zat.</li>
+          <li><strong>Nukleus (inti sel):</strong> Mengatur seluruh kegiatan sel.</li>
+          <li><strong>Sitoplasma:</strong> Cairan tempat organel berada.</li>
+          <li><strong>Mitokondria:</strong> Tempat respirasi sel (penghasil energi).</li>
+          <li><strong>Kloroplas:</strong> Tempat fotosintesis (hanya pada tumbuhan).</li>
+          <li><strong>Vakuola:</strong> Tempat menyimpan air dan zat (banyak pada tumbuhan).</li>
+        </ul>
+      </div>
+
+      <h3>3. Jaringan</h3>
+      <p>Kumpulan sel yang sama akan membentuk jaringan. Contoh pada manusia:</p>
+      
+      <!-- Ilustrasi Jaringan -->
+      <div class="ilustrasi-emoji">💪🧠</div>
+
+      <ul>
+        <li><strong>Jaringan Epitel:</strong> Melapisi permukaan tubuh.</li>
+        <li><strong>Jaringan Otot:</strong> Menggerakkan tubuh.</li>
+        <li><strong>Jaringan Saraf:</strong> Menghantarkan rangsang.</li>
+        <li><strong>Jaringan Ikat:</strong> Menghubungkan dan menyokong organ.</li>
+      </ul>
+
+      <h3>4. Organ</h3>
+      <p>Kumpulan jaringan yang bekerja sama membentuk organ. Contoh:</p>
+      
+      <!-- Ilustrasi Organ -->
+      <div class="ilustrasi-emoji">🫀🫁</div>
+
+      <ul>
+        <li><strong>Jantung:</strong> Memompa darah.</li>
+        <li><strong>Paru-paru:</strong> Tempat pertukaran oksigen.</li>
+        <li><strong>Lambung:</strong> Mencerna makanan.</li>
+        <li><strong>Ginjal:</strong> Menyaring darah.</li>
+      </ul>
+
+      <h3>5. Sistem Organ</h3>
+      <p>Organ-organ yang saling bekerja sama membentuk sistem organ. Contoh:</p>
+      <ul>
+        <li><strong>Sistem Pencernaan:</strong> Mulut, kerongkongan, lambung, usus.</li>
+        <li><strong>Sistem Pernapasan:</strong> Hidung, trakea, paru-paru.</li>
+        <li><strong>Sistem Peredaran Darah:</strong> Jantung, pembuluh darah.</li>
+      </ul>
+
+      <div class="fun-fact">
+        💡 <strong>Fun Fact:</strong> Sel pertama kali ditemukan oleh Robert Hooke pada tahun 1665 saat mengamati irisan gabus menggunakan mikroskop sederhana!
+      </div>
+    </div>
+
+    <!-- GAME SECTION -->
+    <div class="game-section">
+      <h2>⚡ Rapid Fire: 15 Soal!</h2>
+      <p>Jawab semua soal sebelum waktu habis!</p>
+      
+      <div class="game-board">
+        <div id="game-area">
+          <div class="question-box" id="question-text">Tekan tombol di bawah untuk mulai!</div>
+          <button class="btn-start" onclick="startGame()" id="btn-start">Mulai Game 🚀</button>
+          <div class="options-grid" id="options-container" style="display: none;">
+            <button class="option-btn" onclick="checkAnswer(this)">A</button>
+            <button class="option-btn" onclick="checkAnswer(this)">B</button>
+            <button class="option-btn" onclick="checkAnswer(this)">C</button>
+            <button class="option-btn" onclick="checkAnswer(this)">D</button>
+          </div>
+        </div>
+        <div id="game-score">Skor: 0 | Waktu: 90s</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const questions = [
+      { q: "Unit terkecil penyusun makhluk hidup adalah...", a: "Sel", options: ["Jaringan", "Organ", "Sel", "Sistem Organ"] },
+      { q: "Kumpulan sel yang memiliki fungsi sama disebut...", a: "Jaringan", options: ["Organ", "Jaringan", "Sel", "Organisme"] },
+      { q: "Kumpulan jaringan yang bekerja sama disebut...", a: "Organ", options: ["Sel", "Jaringan", "Organ", "Sistem Organ"] },
+      { q: "Organel yang berfungsi sebagai tempat respirasi sel adalah...", a: "Mitokondria", options: ["Nukleus", "Ribosom", "Mitokondria", "Vakuola"] },
+      { q: "Bagian sel yang mengatur seluruh kegiatan sel adalah...", a: "Nukleus", options: ["Membran sel", "Sitoplasma", "Nukleus", "Kloroplas"] },
+      { q: "Organel yang berperan dalam fotosintesis adalah...", a: "Kloroplas", options: ["Mitokondria", "Kloroplas", "Nukleus", "Ribosom"] },
+      { q: "Jaringan yang melapisi permukaan tubuh adalah...", a: "Jaringan Epitel", options: ["Jaringan Otot", "Jaringan Saraf", "Jaringan Epitel", "Jaringan Ikat"] },
+      { q: "Organ yang berfungsi memompa darah adalah...", a: "Jantung", options: ["Paru-paru", "Ginjal", "Jantung", "Lambung"] },
+      { q: "Organ yang berfungsi menyaring darah adalah...", a: "Ginjal", options: ["Hati", "Ginjal", "Lambung", "Jantung"] },
+      { q: "Sistem organ yang berfungsi mengambil oksigen adalah...", a: "Sistem Pernapasan", options: ["Sistem Pencernaan", "Sistem Pernapasan", "Sistem Peredaran Darah", "Sistem Ekskresi"] },
+      { q: "Urutan organisasi kehidupan dari kecil ke besar adalah...", a: "Sel - Jaringan - Organ - Sistem Organ - Organisme", options: ["Organ - Sel - Jaringan - Organisme", "Sel - Organ - Jaringan - Organisme", "Sel - Jaringan - Organ - Sistem Organ - Organisme", "Jaringan - Sel - Organ - Organisme"] },
+      { q: "Sel yang tidak memiliki membran inti disebut...", a: "Prokariotik", options: ["Eukariotik", "Prokariotik", "Multiseluler", "Uniseluler"] },
+      { q: "Penemu pertama kali sel adalah...", a: "Robert Hooke", options: ["Carolus Linnaeus", "Robert Hooke", "Louis Pasteur", "Charles Darwin"] },
+      { q: "Organ pada tumbuhan yang berfungsi menyerap air adalah...", a: "Akar", options: ["Daun", "Batang", "Akar", "Bunga"] },
+      { q: "Contoh organisme uniseluler adalah...", a: "Amoeba", options: ["Kucing", "Amoeba", "Pohon mangga", "Manusia"] }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let gameActive = false;
+    let timeLeft = 90; 
+    let timerInterval;
+
+    function startGame() {
+      gameActive = true;
+      currentQ = 0;
+      score = 0;
+      timeLeft = 90;
+      
+      document.getElementById('btn-start').style.display = 'none';
+      document.getElementById('options-container').style.display = 'grid';
+      document.getElementById('game-score').innerText = `Skor: 0 | Waktu: ${timeLeft}s`;
+      
+      questions.sort(() => Math.random() - 0.5);
+      loadQuestion();
+
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        document.getElementById('game-score').innerText = `Skor: ${score} | Waktu: ${timeLeft}s`;
+        if (timeLeft <= 0) { endGame(); }
+      }, 1000);
+    }
+
+    function loadQuestion() {
+      if (currentQ >= questions.length) {
+        endGame();
+        return;
+      }
+      
+      const q = questions[currentQ];
+      document.getElementById('question-text').innerText = q.q;
+      
+      const opts = document.querySelectorAll('.option-btn');
+      opts.forEach((btn, index) => {
+        btn.innerText = q.options[index];
+        btn.className = 'option-btn';
+        btn.disabled = false;
+      });
+    }
+
+    function checkAnswer(btn) {
+      if (!gameActive) return;
+      
+      const q = questions[currentQ];
+      const selected = btn.innerText;
+      
+      document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+
+      if (selected === q.a) {
+        btn.classList.add('correct');
+        score += 10;
+      } else {
+        btn.classList.add('wrong');
+        document.querySelectorAll('.option-btn').forEach(b => {
+          if (b.innerText === q.a) b.classList.add('correct');
+        });
+      }
+
+      setTimeout(() => {
+        currentQ++;
+        loadQuestion();
+      }, 600); 
+    }
+
+    function endGame() {
+      gameActive = false;
+      clearInterval(timerInterval);
+      document.getElementById('question-text').innerHTML = `🎉 <b>Selesai!</b><br>Skor Akhir: ${score}`;
+      document.getElementById('options-container').style.display = 'none';
+      document.getElementById('btn-start').innerText = "Main Lagi 🔄";
+      document.getElementById('btn-start').style.display = 'inline-block';
+    }
+  </script>
+</body>
+</html>
